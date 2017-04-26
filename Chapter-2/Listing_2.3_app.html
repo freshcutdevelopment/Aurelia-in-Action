@@ -1,0 +1,22 @@
+<template>
+    <h1>Add Book</h1>
+
+    <form submit.trigger="addBook()">
+
+        <label for="book-title"></label>
+
+        <input value.bind="bookTitle"
+            id="book-title" 
+            type="text" 
+            placeholder="book title..."> 
+
+        <input type="submit">
+
+    </form>
+    <hr/>
+
+    <ul>
+        <li repeat.for="book of books"> ${book.Title} </li>
+    </ul>
+    
+</template>
