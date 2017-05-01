@@ -4,7 +4,7 @@ export class App {
   config.title = 'My-Books';
   config.map([ 
    { route: ['', 'home'], name: 'home', moduleId: 'index' },
-   { route: 'books', name: 'books', moduleId: 'books' },
+   { route: 'books', name: 'books', moduleId: './resources/elements/books'},
   ]);
   }
 }
