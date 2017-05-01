@@ -312,10 +312,9 @@ define('resources/elements/books',["exports"], function (exports) {
     this.books = [];
   };
 });
-define('text!app.html', ['module'], function(module) { module.exports = "<template><router-view></router-view></template>"; });
+define('text!app.html', ['module'], function(module) { module.exports = "<template><require from=\"bootstrap/css/bootstrap.css\"></require><require from=\"font-awesome.css\"></require><router-view></router-view></template>"; });
 define('text!index.html', ['module'], function(module) { module.exports = "<template><h1>My-Books</h1><p>My-Books allows you to keep track of the books you've read by adding and rating them as you read.</p><a route-href=\"route: books;\">books</a></template>"; });
-define('text!resources/index.html', ['module'], function(module) { module.exports = "<template><h1>My-Books</h1><p>My-Books allows you to keep track of the books you've read by adding and rating them as you read.</p><a route-href=\"route: books;\">books</a></template>"; });
 define('text!resources/elements/add-book.html', ['module'], function(module) { module.exports = "<template><form submit.trigger=\"addBook()\"><label for=\"book-title\"></label><input value.bind=\"bookTitle\" id=\"book-title\" type=\"text\" placeholder=\"book title...\"> <input type=\"submit\" value=\"add\"></form></template>"; });
-define('text!resources/elements/book-list.html', ['module'], function(module) { module.exports = "<template><ul><li repeat.for=\"book of books\">${book.title}</li></ul></template>"; });
+define('text!resources/elements/book-list.html', ['module'], function(module) { module.exports = "<template><ul><li repeat.for=\"book of books\">${book.title} <i class=\"fa fa-thermometer-three-quarters\" aria-hidden=\"true\"></i></li></ul></template>"; });
 define('text!resources/elements/books.html', ['module'], function(module) { module.exports = "<template><require from=\"./add-book\"></require><require from=\"./book-list\"></require><h1>Books</h1><add-book books.bind=\"books\"></add-book><hr><book-list books.bind=\"books\"></book-list></template>"; });
 //# sourceMappingURL=app-bundle.js.map
