@@ -1,0 +1,5 @@
+[
+    { "Id" : 1, "title" : "War and Peace", "description" : "Really enjoyed this one.", "rating" : 3, "status": "good"},
+    { "Id" : 2, "title" : "Oliver",  "description" : "", "rating" : 2,  "status" : "ok"},
+    { "Id" : 3, "title" : "Charlie and the Chocolate Factory",  "description" : "", "rating" : 5,  "status" : "bad"}
+]
