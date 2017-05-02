@@ -1,4 +1,4 @@
-import {bindable, computedFrom} from 'aurelia-framework'; 
+import {bindable} from 'aurelia-framework';
 
 export class AddBook {
   
@@ -12,9 +12,4 @@ export class AddBook {
     this.books.push({title : this.bookTitle});
     this.bookTitle = "";
   }
-
-   @computedFrom('bookTitle.length') 
-   get canAdd(){
-       return this.bookTitle.length === 0;
-   }
 }

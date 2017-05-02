@@ -4,11 +4,12 @@
           <form class="form-inline" submit.trigger="addBook()">
 
             <label for="book-title"></label>
-
-            <input class="form-control" value.bind="bookTitle"
+            
+            <input class="form-control" 
+                  value.bind="bookTitle & debounce:850"
                   id="book-title"
                   type="text">
-     
+
             <input class="btn btn-success tap-right" 
                    type="submit" 
                    value="add" 

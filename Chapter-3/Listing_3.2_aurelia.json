@@ -152,11 +152,6 @@
               "resources": [
                   "css/bootstrap.css"
               ]
-          },
-          {
-              "name": "font-awesome",
-              "path": "../node_modules/font-awesome/css",
-              "main": "font-awesome.css"
           }
         ]
       }

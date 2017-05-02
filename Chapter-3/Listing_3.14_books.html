@@ -1,0 +1,9 @@
+<template>
+  <require from="./add-book"></require>
+  <require from="./book-list"></require>
+
+  <h1 class='page-header'>Books</h1>
+  <add-book books.bind="books"></add-book>
+  <hr/>
+  <book-list books.bind="books"></book-list>
+</template>

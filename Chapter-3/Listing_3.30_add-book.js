@@ -1,4 +1,4 @@
-import {bindable, computedFrom} from 'aurelia-framework'; 
+import {bindable, computedFrom} from 'aurelia-framework';
 
 export class AddBook {
   

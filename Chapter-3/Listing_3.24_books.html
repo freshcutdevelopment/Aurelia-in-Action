@@ -2,10 +2,19 @@
     <require from="./add-book"></require>
     <require from="./book-list"></require>
     <require from="./heading.html"></require>
-
+    <require from="./book-stats"></require>
     <heading text.bind="'books'"></heading>
 
     <add-book books.bind="books"></add-book>
+
     <hr/>
+    
     <book-list books.bind="books"></book-list>
+
+    <hr/>
+
+    <book-stats if.bind="books.length > 0"
+              books.bind="books"
+              original-number-of-books.one-time="books.length">
+    </book-stats>
 </template>
