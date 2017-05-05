@@ -91,15 +91,6 @@ define('main',['exports', './environment'], function (exports, _environment) {
     });
   }
 });
-define('resources/index',["exports"], function (exports) {
-  "use strict";
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.configure = configure;
-  function configure(config) {}
-});
 define('services/book-api',['exports', 'aurelia-fetch-client', 'aurelia-framework'], function (exports, _aureliaFetchClient, _aureliaFramework) {
   'use strict';
 
@@ -134,6 +125,15 @@ define('services/book-api',['exports', 'aurelia-fetch-client', 'aurelia-framewor
 
     return BookApi;
   }()) || _class);
+});
+define('resources/index',["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.configure = configure;
+  function configure(config) {}
 });
 define('resources/elements/add-book',["exports", "aurelia-framework"], function (exports, _aureliaFramework) {
   "use strict";
@@ -312,10 +312,27 @@ define('resources/elements/books',["exports"], function (exports) {
     this.books = [];
   };
 });
+define('resources/elements/index',["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var Index = exports.Index = function Index() {
+    _classCallCheck(this, Index);
+  };
+});
 define('text!app.html', ['module'], function(module) { module.exports = "<template><router-view></router-view></template>"; });
 define('text!index.html', ['module'], function(module) { module.exports = "<template><h1>My-Books</h1><p>My-Books allows you to keep track of the books you've read by adding and rating them as you read.</p><a route-href=\"route: books;\">books</a></template>"; });
-define('text!resources/index.html', ['module'], function(module) { module.exports = "<template><h1>My-Books</h1><p>My-Books allows you to keep track of the books you've read by adding and rating them as you read.</p><a route-href=\"route: books;\">books</a></template>"; });
 define('text!resources/elements/add-book.html', ['module'], function(module) { module.exports = "<template><form submit.trigger=\"addBook()\"><label for=\"book-title\"></label><input value.bind=\"bookTitle\" id=\"book-title\" type=\"text\" placeholder=\"book title...\"> <input type=\"submit\" value=\"add\"></form></template>"; });
 define('text!resources/elements/book-list.html', ['module'], function(module) { module.exports = "<template><ul><li repeat.for=\"book of books\">${book.title}</li></ul></template>"; });
 define('text!resources/elements/books.html', ['module'], function(module) { module.exports = "<template><require from=\"./add-book\"></require><require from=\"./book-list\"></require><h1>Books</h1><add-book books.bind=\"books\"></add-book><hr><book-list books.bind=\"books\"></book-list></template>"; });
+define('text!resources/elements/index.html', ['module'], function(module) { module.exports = "<template><h1>My-Books</h1><p>My-Books allows you to keep track of the books you've read by adding and rating them as you read.</p><a route-href=\"route: books;\">books</a></template>"; });
 //# sourceMappingURL=app-bundle.js.map
