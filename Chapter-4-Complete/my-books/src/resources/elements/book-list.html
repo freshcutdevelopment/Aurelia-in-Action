@@ -1,0 +1,8 @@
+<template>
+    <require from="../attributes/tooltip"></require>
+    <require from="../value-converters/book-status"></require>
+    <require from="./book-container"></require>
+    <ul class="books list-group list-group-flush">
+        <book-container containerless repeat.for="book of books" book.bind="book"></book-container>
+    </ul>
+</template>
