@@ -91,6 +91,15 @@ define('main',['exports', './environment'], function (exports, _environment) {
     });
   }
 });
+define('resources/index',["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.configure = configure;
+  function configure(config) {}
+});
 define('services/book-api',['exports', 'aurelia-fetch-client', 'aurelia-framework'], function (exports, _aureliaFetchClient, _aureliaFramework) {
   'use strict';
 
@@ -126,95 +135,7 @@ define('services/book-api',['exports', 'aurelia-fetch-client', 'aurelia-framewor
     return BookApi;
   }()) || _class);
 });
-define('resources/index',["exports"], function (exports) {
-  "use strict";
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.configure = configure;
-  function configure(config) {}
-});
-define('resources/elements/add-book',["exports", "aurelia-framework"], function (exports, _aureliaFramework) {
-  "use strict";
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.AddBook = undefined;
-
-  function _initDefineProp(target, property, descriptor, context) {
-    if (!descriptor) return;
-    Object.defineProperty(target, property, {
-      enumerable: descriptor.enumerable,
-      configurable: descriptor.configurable,
-      writable: descriptor.writable,
-      value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
-    });
-  }
-
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
-
-  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-    var desc = {};
-    Object['ke' + 'ys'](descriptor).forEach(function (key) {
-      desc[key] = descriptor[key];
-    });
-    desc.enumerable = !!desc.enumerable;
-    desc.configurable = !!desc.configurable;
-
-    if ('value' in desc || desc.initializer) {
-      desc.writable = true;
-    }
-
-    desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-      return decorator(target, property, desc) || desc;
-    }, desc);
-
-    if (context && desc.initializer !== void 0) {
-      desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-      desc.initializer = undefined;
-    }
-
-    if (desc.initializer === void 0) {
-      Object['define' + 'Property'](target, property, desc);
-      desc = null;
-    }
-
-    return desc;
-  }
-
-  function _initializerWarningHelper(descriptor, context) {
-    throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
-  }
-
-  var _desc, _value, _class, _descriptor;
-
-  var AddBook = exports.AddBook = (_class = function () {
-    function AddBook() {
-      _classCallCheck(this, AddBook);
-
-      _initDefineProp(this, "books", _descriptor, this);
-
-      this.bookTitle = "";
-    }
-
-    AddBook.prototype.addBook = function addBook() {
-      this.books.push({ title: this.bookTitle });
-      this.bookTitle = "";
-    };
-
-    return AddBook;
-  }(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "books", [_aureliaFramework.bindable], {
-    enumerable: true,
-    initializer: null
-  })), _class);
-});
-define('resources/elements/book-list',['exports', 'aurelia-framework', '../../services/book-api'], function (exports, _aureliaFramework, _bookApi) {
+define('resources/elements/book-list',['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -271,34 +192,24 @@ define('resources/elements/book-list',['exports', 'aurelia-framework', '../../se
     throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
   }
 
-  var _dec, _class, _desc, _value, _class2, _descriptor;
+  var _desc, _value, _class, _descriptor;
 
-  var BookList = exports.BookList = (_dec = (0, _aureliaFramework.inject)(_bookApi.BookApi), _dec(_class = (_class2 = function BookList(bookApi) {
-    var _this = this;
-
+  var BookList = exports.BookList = (_class = function BookList() {
     _classCallCheck(this, BookList);
 
     _initDefineProp(this, 'books', _descriptor, this);
-
-    this.bookApi = bookApi;
-
-    this.bookApi.getBooks().then(function (savedBooks) {
-
-      savedBooks.map(function (book) {
-        _this.books.push(book);
-      });
-    });
-  }, (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'books', [_aureliaFramework.bindable], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'books', [_aureliaFramework.bindable], {
     enumerable: true,
     initializer: null
-  })), _class2)) || _class);
+  })), _class);
 });
-define('resources/elements/books',["exports"], function (exports) {
-  "use strict";
+define('resources/elements/books',['exports', 'aurelia-framework', '../../services/book-api'], function (exports, _aureliaFramework, _bookApi) {
+  'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
+  exports.Books = undefined;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -306,11 +217,32 @@ define('resources/elements/books',["exports"], function (exports) {
     }
   }
 
-  var Books = exports.Books = function Books() {
-    _classCallCheck(this, Books);
+  var _dec, _class;
 
-    this.books = [];
-  };
+  var Books = exports.Books = (_dec = (0, _aureliaFramework.inject)(_bookApi.BookApi), _dec(_class = function () {
+    function Books(bookApi) {
+      _classCallCheck(this, Books);
+
+      this.bookTitle = "";
+      this.books = [];
+      this.bookApi = bookApi;
+    }
+
+    Books.prototype.addBook = function addBook() {
+      this.books.push({ title: this.bookTitle });
+      this.bookTitle = "";
+    };
+
+    Books.prototype.bind = function bind() {
+      var _this = this;
+
+      this.bookApi.getBooks().then(function (savedBooks) {
+        return _this.books = savedBooks;
+      });
+    };
+
+    return Books;
+  }()) || _class);
 });
 define('resources/elements/index',["exports"], function (exports) {
   "use strict";
@@ -331,8 +263,7 @@ define('resources/elements/index',["exports"], function (exports) {
 });
 define('text!app.html', ['module'], function(module) { module.exports = "<template><router-view></router-view></template>"; });
 define('text!index.html', ['module'], function(module) { module.exports = "<template><h1>My-Books</h1><p>My-Books allows you to keep track of the books you've read by adding and rating them as you read.</p><a route-href=\"route: books;\">books</a></template>"; });
-define('text!resources/elements/add-book.html', ['module'], function(module) { module.exports = "<template><form submit.trigger=\"addBook()\"><label for=\"book-title\"></label><input value.bind=\"bookTitle\" id=\"book-title\" type=\"text\" placeholder=\"book title...\"> <input type=\"submit\" value=\"add\"></form></template>"; });
 define('text!resources/elements/book-list.html', ['module'], function(module) { module.exports = "<template><ul><li repeat.for=\"book of books\">${book.title}</li></ul></template>"; });
-define('text!resources/elements/books.html', ['module'], function(module) { module.exports = "<template><require from=\"./add-book\"></require><require from=\"./book-list\"></require><h1>Books</h1><add-book books.bind=\"books\"></add-book><hr><book-list books.bind=\"books\"></book-list></template>"; });
+define('text!resources/elements/books.html', ['module'], function(module) { module.exports = "<template><require from=\"./book-list\"></require><h1>Books</h1><form submit.trigger=\"addBook()\"><label for=\"book-title\"></label><input value.bind=\"bookTitle\" id=\"book-title\" type=\"text\" placeholder=\"book title...\"> <input type=\"submit\" value=\"add\"></form><hr><book-list books.bind=\"books\"></book-list></template>"; });
 define('text!resources/elements/index.html', ['module'], function(module) { module.exports = "<template><h1>My-Books</h1><p>My-Books allows you to keep track of the books you've read by adding and rating them as you read.</p><a route-href=\"route: books;\">books</a></template>"; });
 //# sourceMappingURL=app-bundle.js.map
