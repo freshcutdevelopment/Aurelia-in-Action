@@ -1,13 +1,9 @@
-import {bindable} from 'aurelia-framework';
-
-export class AddBook {
-  
-  @bindable books; 
-
+export class Books {
   constructor(){
     this.bookTitle = ""; 
+    this.books = [];
   }
-
+  
   addBook () {
     this.books.push({title : this.bookTitle});
     this.bookTitle = "";

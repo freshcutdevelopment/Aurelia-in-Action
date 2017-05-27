@@ -1,8 +1,8 @@
 import {bindable, inject} from 'aurelia-framework';
-import {BookApi} from '../../services/book-api';
+import {BookApi} from 'book-api';
 
 @inject(BookApi)
-export class Books {
+export class App {
 
   constructor(bookApi){
     this.bookTitle = ""; 
@@ -15,7 +15,7 @@ export class Books {
     this.bookTitle = "";
   }
   
-  bind(){
+  bind(){ 
     this.bookApi.getBooks().then(savedBooks => this.books = savedBooks);
   }
 }
