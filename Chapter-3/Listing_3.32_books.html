@@ -1,7 +1,7 @@
 <template>
     <require from="./book-list"></require>
     <require from="./heading.html"></require>
-    <heading></heading>
+    <heading text.bind="'books'"></heading>
 
     <div class="card">
         <div class="card-block">
@@ -22,4 +22,9 @@
     </div>
     <hr/>
     <book-list books.bind="books"></book-list>
+    <hr/>
+    <book-stats if.bind="books.length > 0"
+              books.bind="books"
+              original-number-of-books.one-time="books.length">
+    </book-stats>
 </template>

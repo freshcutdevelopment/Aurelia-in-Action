@@ -18,9 +18,4 @@ export class Books {
   bind(){
     this.bookApi.getBooks().then(savedBooks => this.books = savedBooks);
   }
-
-  @computedFrom('bookTitle.length') 
-  get canAdd(){
-      return this.bookTitle.length === 0;
-  }
 }

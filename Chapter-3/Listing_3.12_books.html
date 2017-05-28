@@ -1,0 +1,24 @@
+<template>
+    <require from="./book-list"></require>
+
+    <h1 class='page-heading'>books</h1>
+        <div class="card">
+        <div class="card-block">
+            <form class="form-inline" submit.trigger="addBook()">
+
+            <label for="book-title"></label>
+
+            <input class="form-control" value.bind="bookTitle" 
+                id="book-title" 
+                type="text" 
+                placeholder="book title..."> 
+
+                <input class="btn btn-success tap-right" 
+                        type="submit" 
+                        value="add">
+            </form>
+        </div>
+    </div>
+    <hr/>
+    <book-list books.bind="books"></book-list> 
+</template>

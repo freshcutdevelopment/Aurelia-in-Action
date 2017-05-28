@@ -1,7 +1,7 @@
 <template>
     <require from="./book-list"></require>
     <require from="./heading.html"></require>
-    <heading></heading>
+    <heading text.bind="'books'"></heading>
 
     <div class="card">
         <div class="card-block">
@@ -15,7 +15,8 @@
      
             <input class="btn btn-success tap-right" 
                    type="submit" 
-                   value="add">
+                   value="add" 
+                   disabled.bind="canAdd">
 
           </form>
         </div>

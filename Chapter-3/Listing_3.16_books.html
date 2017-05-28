@@ -1,5 +1,8 @@
 <template>
-      <div class="card">
+    <require from="./book-list"></require>
+    <require from="./heading.html"></require>
+
+    <div class="card">
         <div class="card-block">
           <form class="form-inline" submit.trigger="addBook()">
 
@@ -11,10 +14,11 @@
      
             <input class="btn btn-success tap-right" 
                    type="submit" 
-                   value="add" 
-                   disabled.one-way="canAdd">
+                   value="add">
 
           </form>
         </div>
     </div>
+    <hr/>
+    <book-list books.bind="books"></book-list>
 </template>
