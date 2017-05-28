@@ -14,7 +14,7 @@ export class Book{
 
     markRead(){
         this.book.readDate = new Date();
-        this.eventAggregator.publish('book-read', this.book.Id);
+        this.book.read = true;
     }
 
     removeBook(){
@@ -28,7 +28,7 @@ export class Book{
     bind(){
         this.subscribeToEvents();
     }
-
+    
     subscribeToEvents(){
         this.editModeChangedSubscription = this.eventAggregator.subscribe('edit-mode-changed', mode => {
             this.editMode = mode; 

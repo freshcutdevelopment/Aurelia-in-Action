@@ -230,110 +230,6 @@ define('resources/attributes/tooltip',['exports', 'aurelia-framework'], function
         initializer: null
     })), _class2)) || _class);
 });
-define('resources/elements/add-book',["exports", "aurelia-framework"], function (exports, _aureliaFramework) {
-  "use strict";
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.AddBook = undefined;
-
-  function _initDefineProp(target, property, descriptor, context) {
-    if (!descriptor) return;
-    Object.defineProperty(target, property, {
-      enumerable: descriptor.enumerable,
-      configurable: descriptor.configurable,
-      writable: descriptor.writable,
-      value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
-    });
-  }
-
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
-
-  var _createClass = function () {
-    function defineProperties(target, props) {
-      for (var i = 0; i < props.length; i++) {
-        var descriptor = props[i];
-        descriptor.enumerable = descriptor.enumerable || false;
-        descriptor.configurable = true;
-        if ("value" in descriptor) descriptor.writable = true;
-        Object.defineProperty(target, descriptor.key, descriptor);
-      }
-    }
-
-    return function (Constructor, protoProps, staticProps) {
-      if (protoProps) defineProperties(Constructor.prototype, protoProps);
-      if (staticProps) defineProperties(Constructor, staticProps);
-      return Constructor;
-    };
-  }();
-
-  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-    var desc = {};
-    Object['ke' + 'ys'](descriptor).forEach(function (key) {
-      desc[key] = descriptor[key];
-    });
-    desc.enumerable = !!desc.enumerable;
-    desc.configurable = !!desc.configurable;
-
-    if ('value' in desc || desc.initializer) {
-      desc.writable = true;
-    }
-
-    desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-      return decorator(target, property, desc) || desc;
-    }, desc);
-
-    if (context && desc.initializer !== void 0) {
-      desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-      desc.initializer = undefined;
-    }
-
-    if (desc.initializer === void 0) {
-      Object['define' + 'Property'](target, property, desc);
-      desc = null;
-    }
-
-    return desc;
-  }
-
-  function _initializerWarningHelper(descriptor, context) {
-    throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
-  }
-
-  var _dec, _desc, _value, _class, _descriptor;
-
-  var AddBook = exports.AddBook = (_dec = (0, _aureliaFramework.computedFrom)('bookTitle.length'), (_class = function () {
-    function AddBook() {
-      _classCallCheck(this, AddBook);
-
-      _initDefineProp(this, "books", _descriptor, this);
-
-      this.bookTitle = "";
-    }
-
-    AddBook.prototype.addBook = function addBook() {
-      this.books.push({ title: this.bookTitle });
-      this.bookTitle = "";
-    };
-
-    _createClass(AddBook, [{
-      key: "canAdd",
-      get: function get() {
-        return this.bookTitle.length === 0;
-      }
-    }]);
-
-    return AddBook;
-  }(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "books", [_aureliaFramework.bindable], {
-    enumerable: true,
-    initializer: null
-  }), _applyDecoratedDescriptor(_class.prototype, "canAdd", [_dec], Object.getOwnPropertyDescriptor(_class.prototype, "canAdd"), _class.prototype)), _class));
-});
 define('resources/elements/book-container',['exports', 'aurelia-framework', 'aurelia-event-aggregator'], function (exports, _aureliaFramework, _aureliaEventAggregator) {
     'use strict';
 
@@ -420,7 +316,7 @@ define('resources/elements/book-container',['exports', 'aurelia-framework', 'aur
         initializer: null
     })), _class2)) || _class);
 });
-define('resources/elements/book-list',['exports', 'aurelia-framework', '../../services/book-api'], function (exports, _aureliaFramework, _bookApi) {
+define('resources/elements/book-list',['exports', 'aurelia-framework', 'aurelia-event-aggregator'], function (exports, _aureliaFramework, _aureliaEventAggregator) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -479,28 +375,17 @@ define('resources/elements/book-list',['exports', 'aurelia-framework', '../../se
 
   var _dec, _class, _desc, _value, _class2, _descriptor;
 
-  var BookList = exports.BookList = (_dec = (0, _aureliaFramework.inject)(_bookApi.BookApi), _dec(_class = (_class2 = function () {
-    function BookList(bookApi) {
+  var BookList = exports.BookList = (_dec = (0, _aureliaFramework.inject)(_aureliaEventAggregator.EventAggregator), _dec(_class = (_class2 = function () {
+    function BookList(eventAggregator) {
       _classCallCheck(this, BookList);
 
       _initDefineProp(this, 'books', _descriptor, this);
 
-      this.bookApi = bookApi;
+      this.eventAggregator = eventAggregator;
     }
 
-    BookList.prototype.created = function created() {
-      var _this = this;
-
-      this.bookApi.getBooks().then(function (savedBooks) {
-
-        savedBooks.map(function (book) {
-          _this.books.push(book);
-        });
-      });
-    };
-
     BookList.prototype.removeBook = function removeBook(index) {
-      this.books.splice(index, 1);
+      this.eventAggregator.publish('book-removed', index);
     };
 
     return BookList;
@@ -684,7 +569,7 @@ define('resources/elements/book',['exports', 'aurelia-framework', 'aurelia-event
 
         Book.prototype.markRead = function markRead() {
             this.book.readDate = new Date();
-            this.eventAggregator.publish('book-read', this.book.Id);
+            this.book.read = true;
         };
 
         Book.prototype.removeBook = function removeBook() {
@@ -725,12 +610,13 @@ define('resources/elements/book',['exports', 'aurelia-framework', 'aurelia-event
         initializer: null
     })), _class2)) || _class);
 });
-define('resources/elements/books',["exports"], function (exports) {
-  "use strict";
+define('resources/elements/books',['exports', 'aurelia-framework', '../../services/book-api', 'aurelia-event-aggregator'], function (exports, _aureliaFramework, _bookApi, _aureliaEventAggregator) {
+  'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
+  exports.Books = undefined;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -738,11 +624,103 @@ define('resources/elements/books',["exports"], function (exports) {
     }
   }
 
-  var Books = exports.Books = function Books() {
-    _classCallCheck(this, Books);
+  var _createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
 
-    this.books = [];
-  };
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  }();
+
+  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+    var desc = {};
+    Object['ke' + 'ys'](descriptor).forEach(function (key) {
+      desc[key] = descriptor[key];
+    });
+    desc.enumerable = !!desc.enumerable;
+    desc.configurable = !!desc.configurable;
+
+    if ('value' in desc || desc.initializer) {
+      desc.writable = true;
+    }
+
+    desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+      return decorator(target, property, desc) || desc;
+    }, desc);
+
+    if (context && desc.initializer !== void 0) {
+      desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+      desc.initializer = undefined;
+    }
+
+    if (desc.initializer === void 0) {
+      Object['define' + 'Property'](target, property, desc);
+      desc = null;
+    }
+
+    return desc;
+  }
+
+  var _dec, _dec2, _class, _desc, _value, _class2;
+
+  var Books = exports.Books = (_dec = (0, _aureliaFramework.inject)(_bookApi.BookApi, _aureliaEventAggregator.EventAggregator), _dec2 = (0, _aureliaFramework.computedFrom)('bookTitle.length'), _dec(_class = (_class2 = function () {
+    function Books(bookApi, eventAggregator) {
+      _classCallCheck(this, Books);
+
+      this.bookTitle = "";
+      this.books = [];
+      this.bookApi = bookApi;
+      this.eventAggregator = eventAggregator;
+    }
+
+    Books.prototype.addBook = function addBook() {
+      this.books.push({ title: this.bookTitle });
+      this.bookTitle = "";
+    };
+
+    Books.prototype.removeBook = function removeBook(bookIndex) {
+      this.books.splice(bookIndex, 1);
+    };
+
+    Books.prototype.bind = function bind() {
+      var _this = this;
+
+      this.bookApi.getBooks().then(function (savedBooks) {
+        return _this.books = savedBooks;
+      });
+    };
+
+    Books.prototype.attached = function attached() {
+      var _this2 = this;
+
+      this.bookRemovedSubscription = this.eventAggregator.subscribe('book-removed', function (bookIndex) {
+        return _this2.removeBook(bookIndex);
+      });
+    };
+
+    Books.prototype.detached = function detached() {
+      this.bookRemovedSubscription.dispose();
+    };
+
+    _createClass(Books, [{
+      key: 'canAdd',
+      get: function get() {
+        return this.bookTitle.length === 0;
+      }
+    }]);
+
+    return Books;
+  }(), (_applyDecoratedDescriptor(_class2.prototype, 'canAdd', [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, 'canAdd'), _class2.prototype)), _class2)) || _class);
 });
 define('resources/elements/edit-book',['exports', 'aurelia-framework', 'aurelia-event-aggregator', 'lodash', '../../services/book-api'], function (exports, _aureliaFramework, _aureliaEventAggregator, _lodash, _bookApi) {
     'use strict';
@@ -1173,12 +1151,11 @@ define('resources/value-converters/date-format',['exports', 'moment'], function 
 define('text!app.html', ['module'], function(module) { module.exports = "<template><require from=\"bootstrap/css/bootstrap.css\"></require><require from=\"font-awesome.css\"></require><require from=\"styles.css\"></require><div class=\"container\"><div class=\"header clearfix\"><h3 class=\"text-muted\"><span class=\"brand-highlight\">my </span>books</h3></div><router-view></router-view><footer class=\"footer\"><p>&copy; Aurelia Demo 2017</p></footer></div></template>"; });
 define('text!styles.css', ['module'], function(module) { module.exports = "/***********************************************************************************************************/\r\n/** Bootstrap theme specific CSS - Reference https://v4-alpha.getbootstrap.com/examples/narrow-jumbotron/ **/\r\n/***********************************************************************************************************/\r\n\r\n/* Space out content a bit */\r\nbody {\r\n  padding-top: 1.5rem;\r\n  padding-bottom: 1.5rem;\r\n}\r\n\r\n/* Everything but the jumbotron gets side spacing for mobile first views */\r\n.header,\r\n.footer {\r\n  padding-right: 1rem;\r\n  padding-left: 1rem;\r\n}\r\n\r\n/* Custom page header */\r\n.header {\r\n  padding-bottom: 1rem;\r\n  border-bottom: .05rem solid #e5e5e5;\r\n}\r\n\r\n/* Make the masthead heading the same height as the navigation */\r\n.header h3 {\r\n  margin-top: 0;\r\n  margin-bottom: 0;\r\n  line-height: 3rem;\r\n}\r\n\r\n/* Custom page footer */\r\n.footer {\r\n  padding-top: 1.5rem;\r\n  color: #777;\r\n  border-top: .05rem solid #e5e5e5;\r\n}\r\n\r\n.container-narrow > hr {\r\n  margin: 2rem 0;\r\n}\r\n\r\n.jumbotron {\r\n  text-align: center;\r\n  border-bottom: .05rem solid #e5e5e5;\r\n}\r\n\r\n.jumbotron .btn {\r\n  padding: .75rem 1.5rem;\r\n  font-size: 1.5rem;\r\n}\r\n\r\n\r\n/* Responsive: Portrait tablets and up */\r\n@media screen and (min-width: 48em) {\r\n  /* Remove the padding we set earlier */\r\n  .header,\r\n  .footer {\r\n    padding-right: 0;\r\n    padding-left: 0;\r\n  }\r\n  /* Space out the masthead */\r\n  .header {\r\n    margin-bottom: 2rem;\r\n  }\r\n  /* Remove the bottom border on the jumbotron for visual effect */\r\n  .jumbotron {\r\n    border-bottom: 0;\r\n  }\r\n}\r\n\r\n/***********************************************************************************************************/\r\n/** End Bootstrap theme specific CSS                                                                      **/\r\n/***********************************************************************************************************/\r\n\r\n/***********************************************************************************************************/\r\n/** Custom my-books CSS **/\r\n/***********************************************************************************************************/\r\nbody{\r\n  background-color:#f5f8fa;\r\n}\r\n\r\n/* Add box-shadow to jumbotron */\r\n.jumbotron{\r\n  background-color:white;\r\n  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);\r\n}\r\n\r\n/* Add brand highlight color (theme) */\r\n.brand-highlight{\r\n  color:#2ecc71;\r\n}\r\n\r\n/* Add nav bar brand highlight color (theme) */\r\n.nav-pills .nav-item.show .nav-link, .nav-pills .nav-link.active {\r\n    color: #fff;\r\n    background-color: #27ae60;\r\n}\r\n\r\n/* Add brand button-success color (theme) */\r\n.btn-success{\r\n    background-color: #27ae60;\r\n}\r\n\r\n.btn-success:hover {\r\n    background-color: #2ecc71;\r\n}\r\n\r\n.btn-success:disabled{\r\n  background-color: #43bd99;\r\n}\r\n\r\n.btn-outline-success {\r\n    color: #27ae60;\r\n    border-color: #27ae60;\r\n}\r\n\r\n.btn-outline-success:hover{\r\n    color: white;\r\n    border-color: #27ae60;\r\n    background-color: #27ae60;\r\n}\r\n\r\n.cancel{\r\n  color:#d9534f;\r\n}\r\n\r\n.tap-right{\r\n  margin-left:10px;\r\n}\r\n\r\n.page-heading{\r\n  border-bottom: 2px solid #2ecc71;\r\n}\r\n\r\n/** Hover style button for font-awesome icons **/\r\n.remove-button{\r\n  color: rgba(70, 74, 76, 0.78);\r\n}\r\n\r\n.remove-button, .remove-button:hover{\r\n  padding-left: 10px;\r\n  padding-right: 10px;\r\n  padding-top: 5px;\r\n  padding-bottom: 5px;\r\n}\r\n\r\n.remove-button:hover{\r\n    background-color: #eceeef;\r\n    cursor: pointer;\r\n    color: #292b2c;\r\n}\r\n\r\n/** Hide some content until we receive a hover event **/\r\n.hover-display{\r\n  display:none;\r\n}\r\n\r\n/** Read button state changes **/\r\n.read-button:hover, .edit-button:hover{\r\n  cursor:pointer;\r\n}\r\n\r\n.read-button:hover span.hover-display{\r\n  display:initial;\r\n}\r\n\r\n.read-button:disabled span.hover-display{\r\n  display:none;\r\n}\r\n\r\n/** Book list styles **/\r\nli.read-book{\r\n  border-left: 3px solid #2ecc71 !important;\r\n}\r\n\r\n.book-even{\r\n  background-color: #eceeef;;\r\n}\r\n\r\n/** Animations **/\r\n\r\n.books>li.au-enter {\r\n    opacity: 0!important;\r\n}\r\n\r\n.books>li.au-enter-active {\r\n    -webkit-animation: fadeIn 2s;\r\n    animation: fadeIn 2s;\r\n}\r\n\r\n.books>li.au-leave-active {\r\n    -webkit-animation: fadeOut 0.5s;\r\n    animation: fadeOut 0.5s;\r\n}\r\n\r\n@-webkit-keyframes fadeIn {\r\n    0%   { opacity: 0; }\r\n    100% { opacity: 1; }\r\n}\r\n\r\n@keyframes fadeIn {\r\n    0%   { opacity: 0; }\r\n    100% { opacity: 1; }\r\n}\r\n\r\n@-webkit-keyframes fadeOut {\r\n    0%   { opacity: 1; }\r\n    100% { opacity: 0; }\r\n}\r\n\r\n@keyframes fadeOut {\r\n    0%   { opacity: 1; }\r\n    100% { opacity: 0; }\r\n}\r\n\r\n.transformable {\r\n    -webkit-transition: height 100ms linear;\r\n    -moz-transition: height 100ms linear;\r\n    -o-transition: height 100ms linear;\r\n    -ms-transition: height 100ms linear;\r\n    transition: height 100ms linear;\r\n}\r\n\r\n/** End Animations **/\r\n\r\n/** edit-book panel styles **/\r\n.edit-book.hidden{\r\n  height: 0px;\r\n}\r\n\r\n.edit-book.hidden div.wrapper{\r\n  display: none;\r\n}\r\n\r\n.edit-book.visible{\r\n  height: 355px;\r\n  background-color: #eceeef;\r\n  padding-left: 40px;\r\n  padding-right: 40px;\r\n  padding-top: 20px;\r\n  margin-top: 15px;\r\n  margin-bottom: 15px;\r\n  border-top: 2px solid #ccc;\r\n}\r\n\r\n/** ratings component **/\r\nul.ratings li{\r\n  display: inline;\r\n  list-style-type: none;\r\n  padding-right: 20px;\r\n}\r\n\r\n.star:hover{\r\n  cursor: pointer;\r\n  font-weight: bold;\r\n}\r\n\r\n.star.rated{\r\n  color:rgb(255, 204, 0);\r\n\r\n}\r\n\r\n.padded{\r\n  margin-right:3px;\r\n}"; });
 define('text!index.html', ['module'], function(module) { module.exports = "<template><div class=\"jumbotron\"><h1 class=\"display-3\"><span class=\"brand-highlight\">my</span> Books</h1><p class=\"lead\">My-Books allows you to keep track of the books you've read by adding and rating them as you read.</p><a route-href=\"route: books;\">books</a></div><div class=\"row\"><div class=\"col-lg-12\"><p></p></div></div></template>"; });
-define('text!resources/elements/add-book.html', ['module'], function(module) { module.exports = "<template><div class=\"card\"><div class=\"card-block\"><form class=\"form-inline\" submit.trigger=\"addBook()\"><label for=\"book-title\"></label><input class=\"form-control\" value.bind=\"bookTitle\" id=\"book-title\" type=\"text\"> <input class=\"btn btn-success tap-right\" type=\"submit\" value=\"add\" disabled.one-way=\"canAdd\"></form></div></div></template>"; });
 define('text!resources/elements/book-container.html', ['module'], function(module) { module.exports = "<template><require from=\"./book\"></require><li class=\"${book.read ? 'read-book' : ''} list-group-item au-animate\" anim-enter=\"slideRightBigIn;{duration:2000}\"><book containerless book.bind=\"book\"></book></li></template>"; });
-define('text!resources/elements/book-list.html', ['module'], function(module) { module.exports = "<template><require from=\"../attributes/tooltip\"></require><require from=\"../value-converters/book-status\"></require><require from=\"./book-container\"></require><ul class=\"books list-group list-group-flush\"><book-container containerless repeat.for=\"book of books\" book.bind=\"book\"></book-container></ul></template>"; });
+define('text!resources/elements/book-list.html', ['module'], function(module) { module.exports = "<template><require from=\"../attributes/tooltip\"></require><require from=\"./book\"></require><ul class=\"books list-group list-group-flush\"><book containerless repeat.for=\"book of books\" book.bind=\"book\"></book></ul></template>"; });
 define('text!resources/elements/book-stats.html', ['module'], function(module) { module.exports = "<template><div class=\"card text-center\"><div class=\"card-block\"><p class=\"card-text\"><span show.bind=\"addedBooks\" class=\"badge badge-primary\">new books ${addedBooks}</span></p></div><div class=\"card-footer text-muted\">Book Stats</div></div></template>"; });
-define('text!resources/elements/book.html', ['module'], function(module) { module.exports = "<template><require from=\"./edit-book\"></require><div class=\"book col-12\"><div class=\"book-options form-inline\"><div class=\"col-lg-7 col-md-3\">${book.title}</div><div class=\"col-lg-3 col-md-5\"><button class=\"read-button btn btn-success btn-sm\" if.bind=\"!book.readDate\" click.delegate=\"markRead(event)\"><span class=\"hover-display\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> </span>mark read</button> <button class=\"btn btn-secondary btn-sm edit-button\" click.delegate=\"toggleEditMode()\" disabled.bind=\"editMode\">edit</button></div><div class=\"col-1\"><span class=\"remove-button\" click.delegate=\"removeBook($index)\"><i class=\"fa fa-trash\" aria-hidden=\"true\"></i></span></div></div><edit-book book.bind=\"book\" containerless edit-mode.bind=\"editMode\"></edit-book></div></template>"; });
-define('text!resources/elements/books.html', ['module'], function(module) { module.exports = "<template><require from=\"./add-book\"></require><require from=\"./book-list\"></require><require from=\"./heading.html\"></require><heading text.bind=\"'books'\"></heading><add-book books.bind=\"books\"></add-book><hr><book-list books.bind=\"books\"></book-list></template>"; });
+define('text!resources/elements/book.html', ['module'], function(module) { module.exports = "<template><require from=\"./edit-book\"></require><require from=\"../value-converters/book-status\"></require><li class=\"${book.read ? 'read-book' : ''} list-group-item au-animate\" anim-enter=\"slideRightBigIn;{duration:2000}\"><div class=\"book col-12\"><div class=\"book-options form-inline\"><div class=\"col-lg-7 col-md-2\">${book.title}</div><div class=\"col-lg-3 col-md-5\"><button class=\"read-button btn btn-success btn-sm\" if.bind=\"!book.readDate\" click.delegate=\"markRead(event)\"><span class=\"hover-display\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> </span>mark read</button> <button class=\"btn btn-secondary btn-sm edit-button\" click.delegate=\"toggleEditMode()\" disabled.bind=\"editMode\">edit</button></div><span class=\"col-1\"><i class=\"fa ${book.status | bookStatus}\" aria-hidden=\"true\"></i></span><div class=\"col-1\"><span class=\"remove-button\" click.delegate=\"removeBook($index)\"><i class=\"fa fa-trash\" aria-hidden=\"true\"></i></span></div></div><edit-book book.bind=\"book\" containerless edit-mode.bind=\"editMode\"></edit-book></div></li></template>"; });
+define('text!resources/elements/books.html', ['module'], function(module) { module.exports = "<template><require from=\"./book-list\"></require><require from=\"./heading.html\"></require><heading text.bind=\"'books'\"></heading><div class=\"card\"><div class=\"card-block\"><form class=\"form-inline\" submit.trigger=\"addBook()\"><label for=\"book-title\"></label><input class=\"form-control\" value.bind=\"bookTitle\" id=\"book-title\" type=\"text\"> <input class=\"btn btn-success tap-right\" type=\"submit\" value=\"add\" disabled.one-way=\"canAdd\"></form></div></div><hr><book-list books.bind=\"books\"></book-list></template>"; });
 define('text!resources/elements/edit-book.html', ['module'], function(module) { module.exports = "<template><require from=\"./star-rating\"></require><require from=\"../value-converters/date-format\"></require><div ref=\"editFormDiv\" class=\"edit-book ${editMode ? 'visible': 'hidden'} transformable\"><div class=\"wrapper\"><div class=\"row\"><span class=\"col-3 offset-md-10\"><small class=\"text-muted\">${book.readDate | dateFormat}</small></span></div><form><div class=\"form-group row\"><label for=\"title\">Title</label><input type=\"text\" class=\"form-control\" id=\"title\" value.bind=\"temporaryBook.title\" placeholder=\"book title\"></div><div class=\"form-group row\"><label for=\"description\">Description</label><textarea class=\"form-control\" id=\"description\" value.bind=\"temporaryBook.description\" placeholder=\"book description\"></textarea></div><hr><star-rating view-model.ref=\"starRatingViewModel\" ref=\"ratingElement\" rating.bind=\"temporaryBook.rating\"></star-rating><hr><div class=\"form-inline col-3 offset-lg-10 col-sm-12\"><div class=\"custom-control\" show.bind=\"loading\"><i class=\"fa fa-spinner fa-pulse fa-fw\"></i> <span class=\"sr-only\">Loading...</span></div><div class=\"custom-control brand-highlight\" show.bind=\"saved\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div><button class=\"btn btn-secondary btn-sm padded\" click.delegate=\"save()\" disabled.bind=\"!canSave\">save</button> <button class=\"btn btn-secondary btn-sm\" click.delegate=\"cancel()\"><span class=\"cancel\"><i class=\"fa fa-minus-circle\" aria-hidden=\"true\"></i> </span>cancel</button></div></form></div></div></template>"; });
 define('text!resources/elements/heading.html', ['module'], function(module) { module.exports = "<template bindable=\"text\"><h1 class=\"page-heading\">${text}</h1></template>"; });
 define('text!resources/elements/star-rating.html', ['module'], function(module) { module.exports = "<template><ul class=\"ratings\"><li repeat.for=\"star of stars\" click.delegate=\"rate($index)\" mouseover.delegate=\"mouseOver($index) & debounce:100\" mouseout.delegate=\"mouseOut($index)   & debounce:100\"><span class=\"star ${star.displayType === '' ? 'rated' : ''}\"><i class=\"fa fa-star${star.displayType}\" aria-hidden=\"true\"></i></span></li></ul></template>"; });
