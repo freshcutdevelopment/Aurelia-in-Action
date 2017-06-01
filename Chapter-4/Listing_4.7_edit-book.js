@@ -10,12 +10,10 @@ export class EditBook{
 
     constructor(eventAggregator){
         this.eventAggregator = eventAggregator;
-        this.ratingChangedListener =  e => this.temporaryBook.rating = e.rating;
     }
 
     bind(){
         this.resetTempBook(); 
-        this.ratingElement.addEventListener("change", this.ratingChangedListener);
     }
 
     editModeChanged(editModeNew, editModeOld){
@@ -33,14 +31,12 @@ export class EditBook{
 
     cancel(){
         this.temporaryBook = this.book;
-        this.starRatingViewModel.applyRating(this.temporaryBook.rating);
         this.toggleEditMode();
     }
     
     save(){
         this.loading = true;
         this.publishBookSavedEvent();
-        
     }
 
     bookSaveComplete(){
@@ -65,7 +61,6 @@ export class EditBook{
     }
 
     detached(){
-        this.ratingElement.removeEventListener('change', this.ratingChangedListener);
         this.bookSaveCompleteSubscription.dispose();
     }
 }

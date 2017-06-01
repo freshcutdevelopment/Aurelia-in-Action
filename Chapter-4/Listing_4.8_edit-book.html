@@ -1,0 +1,57 @@
+<template>
+    <require from='../value-converters/date-format'></require>
+    <div
+        class="edit-book ${editMode ? 'visible': 'hidden'} transformable">
+        <div class="wrapper">
+            <div class="row">
+                <span class="col-3 offset-md-10"> 
+                    <small class="text-muted">
+                        ${book.readDate | dateFormat} 
+                    </small>
+                </span>
+            </div>
+            <form>
+                <div class="form-group row">
+                    <label for="title">Title</label>
+                    <input type="text" 
+                           class="form-control" 
+                           id="title" 
+                           value.bind="temporaryBook.title" 
+                           placeholder="book title">
+                </div>
+                <div class="form-group row">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" 
+                              id="description" 
+                              value.bind="temporaryBook.description" 
+                              placeholder="book description">
+                    </textarea>
+                </div>
+                <hr/>
+       
+                <div class="form-inline col-3 offset-lg-10 col-sm-12">
+
+                    <div class="custom-control" show.bind="loading">
+                        <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="custom-control brand-highlight" 
+                         show.bind="saved">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                    </div>
+                    <button class="btn btn-secondary btn-sm padded" 
+                            click.delegate="save()" 
+                            disabled.bind="!canSave"> save
+                    </button>
+                    <button class="btn btn-secondary btn-sm" 
+                            click.delegate="cancel()"> 
+                            <span class="cancel"> 
+                                <i class="fa fa-minus-circle" aria-hidden="true"></i> 
+                            </span> cancel
+                    </button>
+                </div>
+       
+            </form>
+        </div>
+    </div>
+</template>

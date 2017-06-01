@@ -29,9 +29,8 @@ export class Book{
     }
     
     subscribeToEvents(){
-        this.editModeChangedSubscription = 
-            this.eventAggregator.subscribe('edit-mode-changed', mode => {
-                                             this.editMode = mode; 
+        this.editModeChangedSubscription = this.eventAggregator.subscribe('edit-mode-changed', mode => {
+            this.editMode = mode; 
         });
     }
 

@@ -8,8 +8,4 @@ export class BookList {
   constructor(eventAggregator){
     this.eventAggregator = eventAggregator;
   }
-
-  removeBook(index){
-      this.eventAggregator.publish('book-removed', index);
-  }
 }
