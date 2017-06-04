@@ -161,7 +161,13 @@
             "main": "font-awesome.css"
           },
           "lodash",
-          "moment"
+          "moment",
+          {
+            "name": "aurelia-validation",
+            "main": "aurelia-validation",
+            "path": "../node_modules/aurelia-validation/dist/amd",
+            "resources": []
+          }
         ]
       }
     ]
