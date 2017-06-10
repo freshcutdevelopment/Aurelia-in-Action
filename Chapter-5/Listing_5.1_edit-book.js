@@ -1,20 +1,18 @@
 import {bindable, inject, computedFrom} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
-import {BookApi} from '../../services/book-api';
 import _ from 'lodash';
 
-@inject(EventAggregator, BookApi )
+@inject(EventAggregator )
 export class EditBook{
     
     @bindable editMode;
     @bindable book;
     @bindable selectedGenre;
 
-    constructor(eventAggregator, bookApi ){
+    constructor(eventAggregator ){
         this.resetTempBook();
 
         this.eventAggregator = eventAggregator;
-        this.bookApi = bookApi;
         this.ratingChangedListener =  e => this.temporaryBook.rating = e.rating;
     }
 
@@ -23,33 +21,18 @@ export class EditBook{
         //apply the temporary book rating once the rating value has been made available in bind hook
         this.temporaryBook.rating = this.book.rating; 
 
-        this.loadGenres();
-
         this.ratingElement.addEventListener("change", this.ratingChangedListener);
-    }
-
-    loadGenres(){
-        this.bookApi.getGenres()
-            .then(genres =>{
-                this.genres = genres;
-                this.selectedGenre = this.genres.find(g => g.id == this.book.genre);
-            });
-    }
-
-    selectedGenreChanged(newValue, oldValue){
-        if(!newValue) return;
-        this.temporaryBook.genre = newValue.id;
     }
 
     attached(){
         this.bookSaveCompleteSubscription = this.eventAggregator.subscribe(`book-save-complete-${this.book.Id}`, () =>  this.bookSaveComplete());
     }
-
+    
     editModeChanged(editModeNew, editModeOld){
         if(editModeNew) this.resetTempBook();
     }
 
-    @computedFrom('temporaryBook.title', 'temporaryBook.description', 'temporaryBook.rating', 'temporaryBook.ownACopy', 'temporaryBook.genre')
+    @computedFrom('temporaryBook.title', 'temporaryBook.description', 'temporaryBook.rating', 'temporaryBook.ownACopy')
     get canSave(){
         return this.temporaryBook && !_.isEqual(this.temporaryBook, this.book);
     }

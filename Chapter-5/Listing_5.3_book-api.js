@@ -32,7 +32,7 @@ export class BookApi{
 
     }
 
-    getGenres(){
+   getGenres(){
 
         let genres = [ 
                         {id: 1,  name:'Art'}, 
@@ -46,12 +46,8 @@ export class BookApi{
                         {id: 9, name:'Science'}, 
                         {id: 10, name:'Science Fiction'},
                     ];
-
+                    
         return this.simulateFetch(genres);
-    }
-
-    saveBook(book){
-        return this.simulateFetch(book);
     }
 
     simulateFetch(fetchResult){
@@ -60,5 +56,9 @@ export class BookApi{
                 resolve(fetchResult);
             }, this.simulatedLatency);
         });
+    }
+
+    saveBook(book){
+        return this.simulateFetch(book);
     }
 }
