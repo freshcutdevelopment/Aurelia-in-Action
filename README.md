@@ -4,7 +4,7 @@ This repository includes the source code listings for the book Aurelia in Action
 This is a work in progress. As such, any feedback that you can give is extremely valuable. You can provide feedback on the source code, or the book itself on the book forum https://forums.manning.com/forums/aurelia-in-action or by submitting a Github issue.
 
 ## How to use this repository
-This repository consists of the following resources:
+This repository consists of code listings and completed chapter snapshots. Both of these resources can be useful in different ways when following along with the my-books example application.
 
 ### Code Listings
 There is a directory for each chapter in the book which contains the full code listing files corresponding to each code listing in that chapter. Each code listing is named according to the file that the listing corresponds to. For example, the listing Chapter-2/Listing_2.1_app.js contains the first code listing for chapter 2, and relates to changes that need to be made to the app.js file ViewModel file. These listings are useful if you want to copy and paste an entire listing file, rather than manually making each edit described in the chapter. These code listings are also available from manning website. https://manning-content.s3.amazonaws.com/download/4/33a24a0-d7ae-402a-8d34-ed54610dfd3b/source-code.zip.
