@@ -1,21 +1,30 @@
-import {bindable, inject, computedFrom} from 'aurelia-framework';
+import {bindable, inject, computedFrom, NewInstance} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {BookApi} from '../../services/book-api';
+import {BootstrapFormRenderer} from '../../renderers/bootstrap-form-renderer';
+import {ValidationRules, ValidationController} from 'aurelia-validation';
 import _ from 'lodash';
 
-@inject(EventAggregator, BookApi )
+@inject(EventAggregator, BookApi,NewInstance.of(ValidationController) )
 export class EditBook{
     
     @bindable editMode;
     @bindable book;
     @bindable selectedGenre;
+    temporaryBook = new Book();
 
-    constructor(eventAggregator, bookApi ){
+    constructor(eventAggregator, bookApi, controller ){
+
         this.resetTempBook();
+        
+        this.controller = controller;
+        this.controller.addRenderer(new BootstrapFormRenderer());
 
         this.eventAggregator = eventAggregator;
         this.bookApi = bookApi;
         this.ratingChangedListener =  e => this.temporaryBook.rating = e.rating;
+        this.editingShelves = false;
+
     }
 
     bind(){
@@ -24,6 +33,7 @@ export class EditBook{
         this.temporaryBook.rating = this.book.rating; 
 
         this.loadGenres();
+        this.loadShelves();
 
         this.ratingElement.addEventListener("change", this.ratingChangedListener);
     }
@@ -51,11 +61,19 @@ export class EditBook{
 
     @computedFrom('temporaryBook.title', 'temporaryBook.description', 'temporaryBook.rating', 'temporaryBook.ownACopy', 'temporaryBook.genre')
     get canSave(){
-        return this.temporaryBook && !_.isEqual(this.temporaryBook, this.book);
+        let compareBook = Object.assign(new Book(), this.book);
+        return this.temporaryBook && !_.isEqual(this.temporaryBook, compareBook);
     }
 
     resetTempBook(){
-        this.temporaryBook = Object.assign({}, this.book);
+        Object.assign(this.temporaryBook, this.book);
+    }
+
+    loadShelves(){
+        this.bookApi.getShelves()
+            .then(shelves => {
+                this.shelves = shelves;
+            });
     }
 
     cancel(){
@@ -65,9 +83,13 @@ export class EditBook{
     }
     
     save(){
-        this.loading = true;
-        this.publishBookSavedEvent();
-        
+        this.controller.validate()
+                        .then(result => {
+                            if (result.valid) {
+                                this.loading = true;
+                                this.publishBookSavedEvent();
+                            } 
+                        });
     }
 
     toggleEditShelves(){
@@ -96,3 +118,21 @@ export class EditBook{
         this.bookSaveCompleteSubscription.dispose();
     }
 }
+export class Book {
+  title='';
+  description='';
+}
+
+ValidationRules.customRule(
+  'positiveInteger',
+  (value, obj) => value === null || value === undefined 
+    || (Number.isInteger(value) || value >= 0),
+  `Books can only be read 0 or more times.` 
+);
+
+ValidationRules
+  .ensure(a => a.title).required()
+  .ensure('timesRead')
+  .required()
+  .satisfiesRule('positiveInteger')
+  .on(Book);

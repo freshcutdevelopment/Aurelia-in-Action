@@ -1,5 +1,6 @@
 <template>
     <require from='./star-rating'></require>
+    <require from='../attributes/tooltip'></require>
     <require from='../value-converters/date-format'></require>  
     <div ref="editFormDiv" class="edit-book ${editMode ? 'visible': 'hidden'} transformable">
         <div class="wrapper">
@@ -9,7 +10,7 @@
             <form>
                 <div class="form-group row">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title" value.bind="temporaryBook.title" placeholder="book title">
+                    <input type="text" class="form-control" id="title" value.bind="temporaryBook.title & validate" placeholder="book title">
                 </div>
                 <div class="form-group row">
                     <label for="description">Description</label>
@@ -39,6 +40,24 @@
                         <label class="form-check-label">
                             <input class="form-check-input" type="checkbox" checked.bind="temporaryBook.ownACopy"> Own a copy?
                         </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="times-read" class="mb-2 mr-sm-2 mb-sm-0">Times Read</label>
+                        <input name="times-read" class="form-control number mb-2 mr-sm-2 mb-sm-0" placeholder="0" value.bind="temporaryBook.timesRead & validate"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="shelves" class="mb-2 mr-sm-2 mb-sm-0">Shelves</label>
+                        <select show.bind="editingShelves" name="shelves" class="form-control mb-1 mr-sm-1 mb-sm-0" multiple value.bind="temporaryBook.shelves">
+                            <option repeat.for="shelf of shelves"
+                                    value.bind="shelf">
+                                ${shelf}
+                            </option>
+                        </select>
+                        <button show.bind="editingShelves" click.delegate="toggleEditShelves()" class="btn btn-secondary btn-sm">ok</button>
+                        <div class="mb-2 mr-sm-2 mb-sm-0" show.bind="!editingShelves">
+                            <span repeat.for="shelf of temporaryBook.shelves" class="badge badge-pill badge-default mb-2 mr-sm-2 mb-sm-0"> ${shelf}</span> 
+                            <span class="icon-button" click.delegate="toggleEditShelves()" tooltip="title.bind:'edit shelves'; placement.bind:'right'"> <i class="fa fa-pencil" aria-hidden="true"></i> </span> 
+                        </div> 
                     </div>
                 </div>
                 <hr/>

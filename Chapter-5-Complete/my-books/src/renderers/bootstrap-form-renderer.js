@@ -34,7 +34,7 @@ export class BootstrapFormRenderer {
 
     // add help-block
     const message = document.createElement('div');
-    message.className = 'form-control-feedback';
+    message.className = 'form-control-feedback mb-2 mr-sm-2 mb-sm-0';
     message.textContent = result.message;
     message.id = `validation-message-${result.id}`;
 
