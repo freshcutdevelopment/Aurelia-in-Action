@@ -10,7 +10,17 @@ export class BookApi{
         const baseUrl = 'http://localhost:8333/api/';
 
         http.configure(config => {
-            config.withBaseUrl(baseUrl);
+            config.withBaseUrl(baseUrl)
+                .withInterceptor({
+                    request(request) {
+                        console.log("request", request);
+                        return request;
+                    },
+                    response(response) {
+                        console.log("response", response);
+                        return response;
+                    }
+                });
         });
     }
 

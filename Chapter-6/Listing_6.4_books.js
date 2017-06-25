@@ -1,21 +1,16 @@
 import {bindable, inject, computedFrom} from 'aurelia-framework';
 import {BookApi} from '../../services/book-api';
-import {BookApiJSONP} from '../../services/book-api-jsonp';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import _ from 'lodash';
 
-@inject(BookApi, EventAggregator, BookApiJSONP)
+@inject(BookApi, EventAggregator)
 export class Books {
 
-
-  constructor(bookApi, eventAggregator,bookApiJSONP){
+  constructor(bookApi, eventAggregator){
     this.bookTitle = ""; 
     this.books = [];
-    this.genres = [];
-    this.shelves = [];
     this.bookApi = bookApi;
     this.eventAggregator = eventAggregator;
-    this.bookApiJSONP = bookApiJSONP;
   }
   
   addBook () {
@@ -37,36 +32,9 @@ export class Books {
   }
 
   bind(){
-    this.loadBooks();
-    this.loadShelves();
-    this.loadGenres();
-    this.loadBooksJsonp();
-  }
-
-  loadBooks(){
-      this.bookApi.getBooks()
-              .then(savedBooks => 
-                    this.books = savedBooks);
-  }
-
-   loadBooksJsonp(){
-      this.bookApiJSONP.getBooksJsonp()
-              .then(savedBooks => console.log("jsonp books", savedBooks));
-  }
-
-  loadShelves(){
-      this.bookApi.getShelves()
-            .then(shelves => {
-                this.shelves = shelves;
-               
-            });
-  }
-
-  loadGenres(){
-        this.bookApi.getGenres()
-            .then(genres =>{
-                this.genres = genres;
-            });
+    this.bookApi.getBooks()
+                .then(savedBooks => 
+                      this.books = savedBooks);
   }
 
   attached(){

@@ -10,11 +10,11 @@ export class BookApi{
         const baseUrl = 'http://localhost:8333/api/';
 
         http.configure(config => {
-            config.withBaseUrl(baseUrl);
-        });
+            config.withBaseUrl(baseUrl)
+        })
     }
 
-    getBooks(){
+   getBooks(){
 
         return this.http.fetch('books')
                  .then(response => response.json())

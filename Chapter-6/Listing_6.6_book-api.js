@@ -10,7 +10,20 @@ export class BookApi{
         const baseUrl = 'http://localhost:8333/api/';
 
         http.configure(config => {
-            config.withBaseUrl(baseUrl);
+            config.withBaseUrl(baseUrl)
+                .withInterceptor({
+                    request(request) {
+                        if(request.method == 'POST'){
+                            request.headers['awesesome-custom-header'] = 'aurelia-in-action';
+                        }
+                        console.log("request", request);
+                        return request;
+                    },
+                    response(response) {
+                        console.log("response", response);
+                        return response;
+                    }
+                });
         });
     }
 
@@ -20,10 +33,7 @@ export class BookApi{
                  .then(response => response.json())
                  .then(books => {
                     return books;
-                 })
-                .catch(error => {
-                    console.log('Error retrieving books.');
-                });
+                 });
 
     }
 
@@ -33,10 +43,7 @@ export class BookApi{
                  .then(response => response.json())
                  .then(shelves => {
                     return shelves;
-                 })
-                .catch(error => {
-                    console.log('Error retrieving shelves.');
-                });
+                 });
     }
 
     getGenres(){
@@ -45,10 +52,7 @@ export class BookApi{
                  .then(response => response.json())
                  .then(genres => {
                     return genres;
-                 })
-                 .catch(error => {
-                    console.log('Error retrieving genres.');
-                });
+                 });
     }
 
     addBook(book){
@@ -59,9 +63,6 @@ export class BookApi{
             .then(response => response.json())
             .then(createdBook => {
                 return createdBook;
-            })
-            .catch(error => {
-                console.log('Error adding book');
             });
     }
 
@@ -72,9 +73,6 @@ export class BookApi{
                 .then(response => response.json())
                 .then(responseMessage => {
                     return responseMessage;
-                })
-                .catch(error => {
-                    console.log('Error deleting book');
                 });
     }
 
@@ -86,10 +84,7 @@ export class BookApi{
                  .then(response => response.json())
                  .then(savedBook => {
                     return savedBook;
-                 })
-                .catch(error => {
-                    console.log('Error saving book');
-                });
+                 });
 
     }
 }
