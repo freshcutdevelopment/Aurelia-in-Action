@@ -1,12 +1,11 @@
-import {bindable, inject, computedFrom,observable} from 'aurelia-framework';
+import {bindable, inject, computedFrom} from 'aurelia-framework';
 import {BookApi} from '../../services/book-api';
 
 @inject(BookApi)
 export class Books {
 
-  @observable bookTitle = ""; 
-
   constructor(bookApi){
+    this.bookTitle = ""; 
     this.books = [];
     this.bookApi = bookApi;
   }
@@ -23,10 +22,5 @@ export class Books {
   @computedFrom('bookTitle.length') 
   get canAdd(){
       return this.bookTitle.length === 0;
-  }
-  bookTitleChanged(newValue, oldValue){ 
-    console.log(`Book title changed, 
-                  Old Value : ${oldValue}, 
-                  New Value: ${newValue}`);
   }
 }

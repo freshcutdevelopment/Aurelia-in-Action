@@ -141,22 +141,6 @@
             "main": "aurelia-fetch-client",
             "path": "../node_modules/aurelia-fetch-client/dist/amd",
             "resources": []
-          },
-          "jquery",
-          {
-              "name": "bootstrap",
-              "path": "../node_modules/bootstrap/dist",
-              "main": "js/bootstrap.min",
-              "deps": ["jquery"],
-              "exports": "$",
-              "resources": [
-                  "css/bootstrap.css"
-              ]
-          },
-          {
-              "name": "font-awesome",
-              "path": "../node_modules/font-awesome/css",
-              "main": "font-awesome.css"
           }
         ]
       }
