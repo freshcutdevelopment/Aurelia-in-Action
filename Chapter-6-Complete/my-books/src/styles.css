@@ -133,18 +133,18 @@ body{
 }
 
 /** Hover style button for font-awesome icons **/
-.icon-button{
+.remove-button{
   color: rgba(70, 74, 76, 0.78);
 }
 
-.icon-button, .icon-button:hover{
+.remove-button, .remove-button:hover{
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
 }
 
-.icon-button:hover{
+.remove-button:hover{
     background-color: #eceeef;
     cursor: pointer;
     color: #292b2c;
@@ -233,8 +233,8 @@ li.read-book{
 }
 
 .edit-book.visible{
-  height: 480px;
-  background-color: #f7f7f9;
+  height: 355px;
+  background-color: #eceeef;
   padding-left: 40px;
   padding-right: 40px;
   padding-top: 20px;
@@ -262,33 +262,4 @@ ul.ratings li{
 
 .padded{
   margin-right:3px;
-}
-
-input.number{
-  max-width: 60px;
-}
-
-@media only screen and (max-width: 1200px)  {
-  .edit-book.visible{
-    height: 550px;
-  }
-}
-
-@media only screen and (max-width: 750px)  {
-  .edit-book.visible{
-    height: 650px;
-  }
-}
-
-@media only screen and (max-width: 550px)  {
-  .edit-book.visible{
-    height: 850px;
-  }
-}
-.badge-default {
-    background-color: rgba(70, 74, 76, 0.59);
-}
-/** Add subtle shadow to elements - Reference Materialize CSS - http://materializecss.com/shadow.html **/
-.z-depth-1 {
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
 }

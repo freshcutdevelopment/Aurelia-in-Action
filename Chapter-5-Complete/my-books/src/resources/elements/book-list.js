@@ -1,11 +1,9 @@
-import {bindable, inject} from 'aurelia-framework';
-import {EventAggregator} from 'aurelia-event-aggregator';
+import {bindable} from 'aurelia-framework';
 
-@inject(EventAggregator)
 export class BookList {
   @bindable books;
   
-  constructor(eventAggregator){
-    this.eventAggregator = eventAggregator;
+  removeBook(index){
+      this.books.splice(index, 1);
   }
 }

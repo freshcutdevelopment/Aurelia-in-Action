@@ -1,0 +1,11 @@
+<template>
+    <require from="../attributes/tooltip"></require>
+    <require from="./book"></require>
+    <ul class="books list-group list-group-flush">
+        <book containerless repeat.for="book of books" 
+              book.bind="book"
+              genres.bind="genres"
+              shelves.bind="shelves">
+        </book>
+    </ul>
+</template>
