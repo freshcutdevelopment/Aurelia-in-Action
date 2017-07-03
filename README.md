@@ -12,7 +12,7 @@ There is a directory for each chapter in the book which contains the full code l
 ### Completed Chapter Snapshots
 There is a completed chapter snapshot directory from chapter 2 onwards. This contains the my-books sample project with the changes snapshotted at that chapter. This is useful if you want to re-set your project after experimenting with changes, or if you just want to skip to a certain point. You can use these snapshots by following the below steps:
 
-1. Check out the entire repository `git checkout https://github.com/freshcutdevelopment/Aurelia-in-Action.git`
+1. Check out the entire repository `git clone https://github.com/freshcutdevelopment/Aurelia-in-Action.git`
 2. Change directory to the my-books project sub-directory of the chapter you wish to jump to `cd Chapter-2-Complete/my-books`
 3. Install the NPM dependences `npm install`
 4. Run the project using the Aurelia CLI `au run --watch`
