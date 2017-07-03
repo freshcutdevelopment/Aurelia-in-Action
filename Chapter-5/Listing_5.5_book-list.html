@@ -3,7 +3,6 @@
     <require from="../value-converters/book-status"></require>
     <require from="../value-converters/filter"></require>
     <require from="../value-converters/search-bold"></require>
-    <require from="../value-converters/highlight"></require>
     <div class="card">
         <div class="card-header form-inline">
             <div class="input-group">
@@ -14,7 +13,7 @@
  
         <ul class="books list-group list-group-flush">
             <li class="list-group-item" repeat.for="book of books | filter:searchTerm">
-                <div class="col-10" innerhtml.bind="book.title | searchBold:searchTerm | highlight"></div> 
+                <div class="col-10" innerhtml.bind="book.title | searchBold:searchTerm"></div> 
                 <span class="col-1"> 
                     <i class="fa ${book.status | bookStatus}" aria-hidden="true"></i> 
                 </span>

@@ -3,18 +3,22 @@
     <require from="../value-converters/book-status"></require>
     <require from="../value-converters/filter"></require>
     <require from="../value-converters/search-bold"></require>
-    <require from="../value-converters/highlight"></require>
     <div class="card">
         <div class="card-header form-inline">
             <div class="input-group">
-                <span class="input-group-addon" id="filter-icon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                <span class="input-group-addon" id="filter-icon">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </span>
                 <input type="text" class="form-control" placeholder="filter" aria-describedby="filter-icon" value.bind="searchTerm">
             </div>
         </div>
  
         <ul class="books list-group list-group-flush">
-            <li class="list-group-item" repeat.for="book of books | filter:searchTerm">
-                <div class="col-10" innerhtml.bind="book.title | searchBold:searchTerm | highlight"></div> 
+            <li class="list-group-item" 
+                repeat.for="book of books | filter:searchTerm">
+                <div class="col-10" 
+                    innerhtml.bind="book.title | searchBold:searchTerm">
+                </div> 
                 <span class="col-1"> 
                     <i class="fa ${book.status | bookStatus}" aria-hidden="true"></i> 
                 </span>
@@ -27,6 +31,5 @@
                 </div>
             </li>
         </ul>
-   
     </div>
 </template>
