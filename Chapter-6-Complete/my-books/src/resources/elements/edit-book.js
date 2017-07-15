@@ -46,6 +46,7 @@ export class EditBook{
     bookSaveComplete(){
         this.loading = false;
         this.saved = true;
+        Object.assign(this.book, this.temporaryBook); 
         setTimeout(() => {
            this.saved = false;
            this.toggleEditMode();  

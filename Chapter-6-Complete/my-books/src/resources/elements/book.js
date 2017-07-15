@@ -5,12 +5,13 @@ import {EventAggregator} from 'aurelia-event-aggregator';
 export class Book{
 
     @bindable book;   
-
+    @bindable searchTerm;
+    
     constructor(eventAggregator){
         this.eventAggregator = eventAggregator;
         this.editMode = false;
     }
-
+    
     markRead(){
         this.book.readDate = new Date();
         this.book.read = true;

@@ -18,6 +18,7 @@ export class Books {
     this.loadShelves();
   }
 
+  
   loadGenres(){
       this.bookApi.getGenres()
           .then(genres =>{
@@ -64,11 +65,8 @@ export class Books {
   bookSaved(updatedBook){
       this.bookApi
           .saveBook(updatedBook)
-          .then((savedBook) =>{
-                let bookIndex = _.findIndex(this.books, book => book.Id === updatedBook.Id);
-                this.books[bookIndex] = updatedBook;
-                this.eventAggregator.publish(`book-save-complete-${savedBook.Id}`);
-          });
+          .then((savedBook) => this.eventAggregator
+                                  .publish(`book-save-complete-${savedBook.Id}`));
   }
   
   loadBooks(){

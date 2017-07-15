@@ -1,42 +1,29 @@
 import {bindable, inject, computedFrom} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
-import {BookApi} from '../../services/book-api';
 import _ from 'lodash';
 
-@inject(EventAggregator, BookApi )
+@inject(EventAggregator)
 export class EditBook{
     
     @bindable editMode;
     @bindable book;
     @bindable selectedGenre;
+    @bindable genres;
+    @bindable shelves;
+    temporaryBook = {};
 
-    constructor(eventAggregator, bookApi ){
-        this.resetTempBook();
-
+    constructor(eventAggregator ){
         this.eventAggregator = eventAggregator;
-        this.bookApi = bookApi;
         this.ratingChangedListener =  e => this.temporaryBook.rating = e.rating;
         this.editingShelves = false;
-
+        this.saved = false;
     }
 
     bind(){
-
-        //apply the temporary book rating once the rating value has been made available in bind hook
-        this.temporaryBook.rating = this.book.rating; 
-
-        this.loadGenres();
-        this.loadShelves();
-
+        this.resetTempBook();
         this.ratingElement.addEventListener("change", this.ratingChangedListener);
-    }
-
-    loadGenres(){
-        this.bookApi.getGenres()
-            .then(genres =>{
-                this.genres = genres;
-                this.selectedGenre = this.genres.find(g => g.id == this.book.genre);
-            });
+        this.selectedShelves = this.shelves.filter(shelf => this.temporaryBook.shelves.indexOf(shelf) !== -1);
+        this.selectedGenre = this.genres.find(g => g.id == this.book.genre);
     }
 
     selectedGenreChanged(newValue, oldValue){
@@ -45,31 +32,47 @@ export class EditBook{
     }
 
     attached(){
-        this.bookSaveCompleteSubscription = this.eventAggregator.subscribe(`book-save-complete-${this.book.Id}`, () =>  this.bookSaveComplete());
+        this.bookSaveCompleteSubscription = 
+            this.eventAggregator
+            .subscribe(`book-save-complete-${this.book.Id}`, 
+                        () =>  this.bookSaveComplete());
     }
 
     editModeChanged(editModeNew, editModeOld){
         if(editModeNew) this.resetTempBook();
     }
 
-    @computedFrom('temporaryBook.title', 'temporaryBook.description', 'temporaryBook.rating', 'temporaryBook.ownACopy', 'temporaryBook.genre')
+    @computedFrom('temporaryBook.title', 
+                  'temporaryBook.description', 
+                  'temporaryBook.rating', 
+                  'temporaryBook.ownACopy', 
+                  'temporaryBook.genre', 
+                  'saved', 
+                  'temporaryBook.shelves',
+                  'temporaryBook.timesRead')
     get canSave(){
-        return this.temporaryBook && !_.isEqual(this.temporaryBook, this.book);
+        if(!this.temporaryBook.Id) return false;
+        
+        return this.isDirty();
+    }
+
+    isDirty(){
+     
+        let differences = [];
+        _.forIn(this.temporaryBook, (value, key) => {
+            return differences.push({different : this.book[key] != value, key : key} );
+        });
+
+        return differences.filter(d => d.different).length > 0;
     }
 
     resetTempBook(){
-        this.temporaryBook = Object.assign({}, this.book);
-    }
-
-    loadShelves(){
-        this.bookApi.getShelves()
-            .then(shelves => {
-                this.shelves = shelves;
-            });
+        Object.assign(this.temporaryBook, this.book);
     }
 
     cancel(){
-        this.temporaryBook = this.book;
+        let book = Object.assign(new Book(), this.book);
+        this.temporaryBook = book;
         this.starRatingViewModel.applyRating(this.temporaryBook.rating);
         this.toggleEditMode();
     }
@@ -77,16 +80,22 @@ export class EditBook{
     save(){
         this.loading = true;
         this.publishBookSavedEvent();
-        
     }
 
     toggleEditShelves(){
         this.editingShelves = !this.editingShelves;
     }
 
+    unToggleEditShelves(){
+        this.temporaryBook.shelves = this.selectedShelves;
+        this.editingShelves = !this.editingShelves;
+    }
+
     bookSaveComplete(){
         this.loading = false;
         this.saved = true;
+        Object.assign(this.book, this.temporaryBook);
+
         setTimeout(() => {
            this.saved = false;
            this.toggleEditMode();  
@@ -98,6 +107,7 @@ export class EditBook{
     }
 
     toggleEditMode(){
+        this.saved = false;
         this.eventAggregator.publish('edit-mode-changed', !this.editMode );
     }
 

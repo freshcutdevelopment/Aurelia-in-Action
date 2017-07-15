@@ -4,7 +4,8 @@ import {EventAggregator} from 'aurelia-event-aggregator';
 @inject(EventAggregator)
 export class Book{
 
-    @bindable book;   
+    @bindable book;
+    @bindable searchTerm;   
 
     constructor(eventAggregator){
         this.eventAggregator = eventAggregator;

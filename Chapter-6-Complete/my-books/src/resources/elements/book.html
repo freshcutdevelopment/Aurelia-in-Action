@@ -1,10 +1,13 @@
 <template>
     <require from="./edit-book"></require>
+    <require from="../value-converters/search-bold"></require>
+    <require from="../value-converters/highlight"></require>
     <require from="../value-converters/book-status"></require>
-    <li class="${book.read ? 'read-book' : ''} list-group-item au-animate" anim-enter="slideRightBigIn;{duration:2000}">    
+    <li class="${book.read ? 'read-book' : ''} list-group-item au-animate" 
+        anim-enter="slideRightBigIn;{duration:2000}">    
         <div class="book col-12">
             <div class="book-options form-inline">
-                <div class="col-lg-7 col-md-2">${book.title}</div> 
+                <div class="col-lg-7 col-md-2" innerhtml.bind="book.title | searchBold:searchTerm | highlight"></div> 
                 <div class="col-lg-3 col-md-5"> 
                     <button class="read-button btn btn-success btn-sm" if.bind="!book.read" click.delegate="markRead()"> 
                         <span class="hover-display"> <i class="fa fa-check" aria-hidden="true"></i> 

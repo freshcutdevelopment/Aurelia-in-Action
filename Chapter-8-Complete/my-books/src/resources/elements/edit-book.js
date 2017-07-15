@@ -75,7 +75,6 @@ export class EditBook{
     }
     
     save(){
-        this.dirty = true;
         this.controller.validate()
                         .then(result => {
                             if (result.valid) {

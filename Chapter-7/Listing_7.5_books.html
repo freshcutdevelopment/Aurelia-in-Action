@@ -15,16 +15,18 @@
      
             <input class="btn btn-success tap-right" 
                    type="submit" 
-                   value="add">
+                   value="add" 
+                   disabled.one-way="canAdd">
 
           </form>
         </div>
     </div>
     <hr/>
-    <book-list books.bind="books"></book-list>
-    <hr/>
-    <book-stats if.bind="books.length > 0"
-              books.bind="books"
-              original-number-of-books.one-time="books.length">
-    </book-stats>
+    <book-list if.bind="books.length > 0 
+                     && genres.length > 0 
+                     && shelves.length > 0" 
+        shelves.bind="shelves" 
+        genres.bind="genres" 
+        books.bind="books">
+    </book-list>
 </template>
