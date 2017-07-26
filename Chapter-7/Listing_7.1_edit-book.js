@@ -32,7 +32,10 @@ export class EditBook{
         if(editModeNew) this.resetTempBook();
     }
 
-    @computedFrom('temporaryBook.title', 'temporaryBook.description', 'temporaryBook.rating', 'temporaryBook.ownACopy')
+    @computedFrom('temporaryBook.title', 
+                  'temporaryBook.description', 
+                  'temporaryBook.rating', 
+                  'temporaryBook.ownACopy')
     get canSave(){
         return this.temporaryBook && !_.isEqual(this.temporaryBook, this.book);
     }
