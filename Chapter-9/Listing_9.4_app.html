@@ -1,0 +1,22 @@
+<template>
+    <require from="bootstrap/css/bootstrap.css"></require>   
+    <require from="font-awesome.css"></require>
+    <require from="styles.css"></require>
+    <require from="./resources/elements/nav-bar.html"></require>
+  
+     <div class="container">
+        <div class="header clearfix">
+        <h3 class="text-muted">
+            <span class="brand-highlight">my 
+                </span> books
+        </h3>
+        <nav-bar router.bind="router"></nav-bar>
+      </div>
+      <router-view></router-view>
+      <footer class="footer">
+        <p>&copy; Aurelia Demo 2017</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+</template>

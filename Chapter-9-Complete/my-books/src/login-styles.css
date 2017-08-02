@@ -1,0 +1,31 @@
+body{
+    background-image: url("/images/background.jpeg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+h1{
+    color: #009688;
+}
+
+.brand-heading{
+    font-family: 'Shadows Into Light Two', cursive;
+    font-size: 100px;
+    color:white;
+}
+
+html, body {
+    height: 100%;
+}
+.container, .row.justify-content-center.align-items-center {
+    height: 90%;
+    min-height: 90%;
+}
+
+.card, .card-header, .card-footer{
+    background: rgba(225, 225, 225, .5);
+}
+
+.card-block{
+    background: rgba(225, 225, 225, .8);
+}
