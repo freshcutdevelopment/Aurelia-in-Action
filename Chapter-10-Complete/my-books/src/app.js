@@ -1,11 +1,28 @@
 import {AuthService} from './services/auth-service';
 import {inject} from 'aurelia-framework';
+import {HttpClient} from 'aurelia-fetch-client';
+import {Redirect} from 'aurelia-router';
 
-@inject(AuthService)
+@inject(AuthService, HttpClient)
 export class App {
 
-    constructor(authService){
+    constructor(authService, http){
       this.authService = authService;
+
+        const baseUrl = 'http://localhost:8333/api/';
+
+        http.configure(config => {
+            config.withBaseUrl(baseUrl)
+                  .withInterceptor({
+                  request(request) {
+                    let token = window.localStorage.getItem("token");
+                    if(token){
+                        request.headers.append('authorization', `bearer ${token}`);
+                    }
+                    return request; 
+                  }
+                });
+        });
     }
 
     configureRouter(config, router) {

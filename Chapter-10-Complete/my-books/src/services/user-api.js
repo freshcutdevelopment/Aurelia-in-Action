@@ -6,12 +6,6 @@ export class UserApi{
     
     constructor(http){
         this.http = http;
-        
-        const baseUrl = 'http://localhost:8333/api/';
-
-        http.configure(config => {
-            config.withBaseUrl(baseUrl);
-        });
     }
 
      getUser(name){

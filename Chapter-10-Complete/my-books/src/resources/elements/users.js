@@ -7,17 +7,9 @@ export class Users{
         this.userApi = userApi;
     }
 
-    activate(params, routConfig, navigationInstructions){
-        console.log("activate");
-    }
-
     bind(){
-        console.log("bind");
-        this.loadUsers();
-    }
 
-    attached(){
-        console.log("attached");
+        this.loadUsers();
     }
 
     loadUsers(){

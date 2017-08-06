@@ -6,20 +6,18 @@ export class AuthService{
 
     constructor(http){
         this.http = http;
-        
-        const baseUrl = 'http://localhost:8333/api/';
-
-        http.configure(config => {
-            config.withBaseUrl(baseUrl);
-        });
     }
 
     isLoggedIn(){
-        let token = window.localStorage.getItem("token");
+        let token = this.getToken();
 
         if(token) return true;
 
         return false;
+    }
+
+    getToken(){
+        return window.localStorage.getItem("token");
     }
 
     logIn(userName, password){
