@@ -1,7 +1,7 @@
 import {AuthService} from './services/auth-service';
 import {inject} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
-import {Redirect} from 'aurelia-router';
+import {AuthorizeStep} from './router-steps/authorization-step';
 
 @inject(AuthService, HttpClient)
 export class App {
@@ -90,23 +90,5 @@ export class App {
     ]);
 
     config.mapUnknownRoutes(handleUnknownRoutes);
-  }
-}
-
-class AuthorizeStep {
-
-  constructor(authService){
-    this.authService = authService;
-  }
-
-  run(navigationInstruction, next) {
-    if (navigationInstruction.getAllInstructions().some(i => i.config.settings.auth)) {
-      
-      if (!this.authService.isLoggedIn()) {
-        return next.cancel(new Redirect('login'));
-      }
-    }
-
-    return next();
   }
 }

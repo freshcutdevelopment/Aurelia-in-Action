@@ -8,7 +8,6 @@ export class Users{
     }
 
     bind(){
-
         this.loadUsers();
     }
 
