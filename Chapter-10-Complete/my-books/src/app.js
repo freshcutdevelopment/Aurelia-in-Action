@@ -13,15 +13,7 @@ export class App {
 
         http.configure(config => {
             config.withBaseUrl(baseUrl)
-                  .withInterceptor({
-                  request(request) {
-                    let token = window.localStorage.getItem("token");
-                    if(token){
-                        request.headers.append('authorization', `bearer ${token}`);
-                    }
-                    return request; 
-                  }
-                });
+                  .withInterceptor(this.authService.tokenInterceptor);
         });
     }
 

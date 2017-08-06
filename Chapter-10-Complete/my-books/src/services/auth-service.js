@@ -39,4 +39,17 @@ export class AuthService{
     logOut(){
         window.localStorage.removeItem("token");
     }
+
+    get tokenInterceptor(){
+        let auth = this;
+        return {
+            request(request) {
+                let token = auth.getToken();
+                if(token){
+                    request.headers.append('authorization', `bearer ${token}`);
+                }
+                return request; 
+            }
+        }
+    }
 }
