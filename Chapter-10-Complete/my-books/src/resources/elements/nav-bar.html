@@ -1,4 +1,4 @@
-<template bindable="router">
+<template>
     <nav>
         <ul class="nav nav-pills float-right">
             <li repeat.for="row of router.navigation"
@@ -8,6 +8,11 @@
                     <i if.bind="row.settings.icon"
                         class="fa fa-${row.settings.icon}">
                     </i>
+                </a>
+            </li>
+            <li click.delegate="logOut()">
+                <a class="nav-link " href="#">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i> logout
                 </a>
             </li>
         </ul>

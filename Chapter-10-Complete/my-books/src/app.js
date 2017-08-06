@@ -1,4 +1,13 @@
+import {AuthService} from './services/auth-service';
+import {inject} from 'aurelia-framework';
+
+@inject(AuthService)
 export class App {
+
+    constructor(authService){
+      this.authService = authService;
+    }
+
     configureRouter(config, router) {
     this.router = router;
     config.title = 'My-Books';
@@ -12,6 +21,10 @@ export class App {
       return './resources/elements/what-happened.html';
     }
 
+    let step = new AuthorizeStep(this.authService);
+
+    config.addAuthorizeStep(step)
+
     config.map([ 
       { 
         route: ['', 'home'], 
@@ -19,7 +32,7 @@ export class App {
         moduleId: 'index', 
         title:'home', 
         nav:true, 
-        settings: {icon:'home'}, 
+        settings: {icon:'home', auth:true}, 
         layoutViewModel: 'main-layout'
       },
       { 
@@ -27,7 +40,7 @@ export class App {
         name: 'books', 
         moduleId: './resources/elements/books', 
         title:'books', nav:true, 
-        settings: {icon:'book'},  
+        settings: {icon:'book', auth:true},  
         layoutViewModel: 'main-layout'
       },
       { 
@@ -36,14 +49,15 @@ export class App {
         moduleId: './resources/elements/users', 
         title:'users', 
         nav:true, 
-        settings: {icon:'users'}, 
+        settings: {icon:'users', auth:true}, 
         layoutViewModel: 'main-layout'
       },
       { 
         route: 'users/:name/details', 
         name: 'user-detail', 
         moduleId: './resources/elements/user-details', 
-        title:'user details',   
+        title:'user details', 
+        settings: { auth:true }, 
         layoutViewModel: 'main-layout'
       },
       { 
@@ -59,5 +73,23 @@ export class App {
     ]);
 
     config.mapUnknownRoutes(handleUnknownRoutes);
+  }
+}
+
+class AuthorizeStep {
+
+  constructor(authService){
+    this.authService = authService;
+  }
+
+  run(navigationInstruction, next) {
+    if (navigationInstruction.getAllInstructions().some(i => i.config.settings.auth)) {
+      
+      if (!this.authService.isLoggedIn()) {
+        return next.cancel(new Redirect('login'));
+      }
+    }
+
+    return next();
   }
 }
