@@ -29,4 +29,12 @@
                genres.bind="genres" 
                shelves.bind="shelves">
     </book-list>
+    <div if.bind="books.length == 0" class="card card-outline-info mb-3 text-center">
+        <div class="card-block">
+            <h1><i class="fa fa-lightbulb-o"></i> Welcome</h1>
+            <blockquote class="card-blockquote">
+            <p>Your bookshelf is looking bare. Add some books to get started.</p>
+            </blockquote>
+        </div>
+    </div>
 </template>

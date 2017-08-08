@@ -173,6 +173,12 @@
             "main": "aurelia-http-client",
             "path": "../node_modules/aurelia-http-client/dist/amd",
             "resources": []
+          },
+          {
+            "name": "aurelia-plugins-jwt-decode",
+            "main": "index",
+            "path": "../node_modules/aurelia-plugins-jwt-decode/dist/amd",
+            "resources": []
           }
         ]
       }

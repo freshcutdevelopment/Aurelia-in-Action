@@ -10,6 +10,10 @@ export class NavBar{
         this.router = router;
     }
 
+    bind(){
+        this.user = this.authService.getUser();
+    }
+
     logOut(){
        this.authService.logOut();
        this.router.navigateToRoute('login');

@@ -41,7 +41,7 @@ export class App {
         moduleId: "index",
         title: "home",
         nav: true,
-        settings: { icon: "home", auth: true },
+        settings: { icon: "home", auth: true},
         layoutViewModel: "main-layout"
       },
       {
@@ -59,7 +59,7 @@ export class App {
         moduleId: "./resources/elements/users",
         title: "users",
         nav: true,
-        settings: { icon: "users", auth: true },
+        settings: { icon: "users", auth: true, admin:true },
         layoutViewModel: "main-layout"
       },
       {
@@ -67,7 +67,7 @@ export class App {
         name: "user-detail",
         moduleId: "./resources/elements/user-details",
         title: "user details",
-        settings: { auth: true },
+        settings: { auth: true, admin:true },
         layoutViewModel: "main-layout"
       },
       {

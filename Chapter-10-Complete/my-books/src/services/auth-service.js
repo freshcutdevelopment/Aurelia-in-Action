@@ -20,6 +20,25 @@ export class AuthService{
         return window.localStorage.getItem("token");
     }
 
+    getUser(){
+        let token = this.decodeToken();
+        return token._doc;
+    }
+
+    decodeToken(token){
+        
+        token = token || window.localStorage.getItem("token");
+
+        if(!token) return;
+
+        try {
+            return JSON.parse(atob(token.split('.')[1]));
+        }
+        catch (e) {
+            return null;
+        }
+    }
+    
     logIn(userName, password){
 
         return this.http.fetch('token', {
