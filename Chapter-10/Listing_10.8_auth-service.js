@@ -56,7 +56,6 @@ export class AuthService{
 
     getUser(){
         let token = this.decodeToken();
-
         return token._doc;
     }
 

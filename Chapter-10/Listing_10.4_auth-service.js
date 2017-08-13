@@ -24,6 +24,9 @@ export class AuthService{
             });
     }
 
+    logOut(){
+        window.localStorage.removeItem("token");
+    }
     
     get tokenInterceptor(){
         let auth = this;
@@ -35,42 +38,6 @@ export class AuthService{
                 }
                 return request; 
             }
-        }
-    }
-
-    logOut(){
-        window.localStorage.removeItem("token");
-    }
-
-    isLoggedIn(){
-        let token = this.getToken();
-
-        if(token) return true;
-
-        return false;
-    }
-
-    getToken(){
-        return window.localStorage.getItem("token");
-    }
-
-    getUser(){
-        let token = this.decodeToken();
-
-        return token._doc;
-    }
-
-    decodeToken(token){
-        
-        token = token || window.localStorage.getItem("token");
-
-        if(!token) return;
-
-        try {
-            return JSON.parse(atob(token.split('.')[1]));
-        }
-        catch (e) {
-            return null;
         }
     }
 }
