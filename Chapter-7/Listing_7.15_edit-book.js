@@ -13,12 +13,12 @@ export class EditBook{
     @bindable selectedGenre;
     temporaryBook = new Book();
 
-    constructor(eventAggregator, bookApi, controller ){
+    constructor(eventAggregator, bookApi, validationController ){
 
         this.resetTempBook();
         
-        this.controller = controller;
-        this.controller.addRenderer(new BootstrapFormRenderer());
+        this.validationController = validationController;
+        this.validationController.addRenderer(new BootstrapFormRenderer());
 
         this.eventAggregator = eventAggregator;
         this.bookApi = bookApi;
@@ -28,7 +28,7 @@ export class EditBook{
     }
 
     validate(){
-        this.controller.validate();
+        this.validationController.validate();
     }
 
     bind(){

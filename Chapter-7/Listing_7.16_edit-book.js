@@ -14,10 +14,10 @@ export class EditBook{
     @bindable shelves;
     temporaryBook = new Book();
 
-    constructor(eventAggregator,  controller ){
+    constructor(eventAggregator,  validationController ){
         
-        this.controller = controller;
-        this.controller.addRenderer(new BootstrapFormRenderer());
+        this.validationController = validationController;
+        this.validationController.addRenderer(new BootstrapFormRenderer());
         this.eventAggregator = eventAggregator;
         this.ratingChangedListener =  e => this.temporaryBook.rating = e.rating;
         this.editingShelves = false;
@@ -84,7 +84,7 @@ export class EditBook{
     }
     
     save(){
-        this.controller.validate()
+        this.validationController.validate()
                         .then(result => {
                             if (result.valid) {
                                 this.loading = true;
@@ -135,7 +135,7 @@ export class Book {
 }
 
 ValidationRules.customRule(
-  'positiveInteger',
+  'zeroOrPositiveInteger',
   (value, obj) => value === null || value === undefined 
     || (Number.isInteger(value) || value >= 0),
   `Books can only be read 0 or more times.` 
@@ -145,5 +145,5 @@ ValidationRules
   .ensure(a => a.title).required()
   .ensure('timesRead')
   .required()
-  .satisfiesRule('positiveInteger')
+  .satisfiesRule('zeroOrPositiveInteger')
   .on(Book);
