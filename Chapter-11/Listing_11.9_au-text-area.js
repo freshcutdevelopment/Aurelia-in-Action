@@ -1,7 +1,7 @@
 export class AuTextArea{
   
   activate(model) {
-    this.property = model;
+    this.field = model;
   }
   
 }

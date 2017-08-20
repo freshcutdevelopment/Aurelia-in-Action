@@ -4,7 +4,7 @@ export class AuForm{
 
   
   constructor(){
-    this.properties = [
+    this.fields = [
       {
           name : "Title", 
           value : "War and Peace", 
@@ -23,7 +23,7 @@ export class AuForm{
   }
   
   addBook(){
-    alert(`book added with title ${this.properties[0].value} `);
+    alert(`book added with title ${this.fields[0].value} `);
   }
   
 }

@@ -9,17 +9,17 @@
           </h6>
       <hr/>
         <div class="form-group">
-          <div repeat.for="prop of properties">
+          <div repeat.for="field of fields">
              <compose containerless 
-                      view-model="./${prop.controlType}" 
-                      model.bind="prop"></compose>
+                      view-model="./${field.controlType}" 
+                      model.bind="field"></compose>
           </div>
         </div>
       </form>
     </div>
    <div class="card-footer">
       <button type="submit" class="btn btn-primary col-sm-3 push-sm-9" 
-              disabled.bind="properties[0].value.length == 0">
+              disabled.bind="fields[0].value.length == 0">
         add
       </button>  
    </div>
