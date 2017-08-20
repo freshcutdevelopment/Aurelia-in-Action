@@ -1,0 +1,28 @@
+<template>
+  <form class="form card" submit.trigger="addBook()">
+    <div class="card-block">
+      <h4 class="card-title">Add book 
+          <i class="fa fa-book"></i>
+    </h4>
+      <h6 class="card-subtitle mb-2 text-muted">
+          add a book to your bookshelf
+          </h6>
+      <hr/>
+        <div class="form-group">
+          <div repeat.for="prop of properties">
+             <compose containerless 
+                      view-model="./${prop.controlType}" 
+                      model.bind="prop"></compose>
+          </div>
+        </div>
+      </form>
+    </div>
+   <div class="card-footer">
+      <button type="submit" class="btn btn-primary col-sm-3 push-sm-9" 
+              disabled.bind="properties[0].value.length == 0">
+        add
+      </button>  
+   </div>
+  </div>
+</template>
+</template>
