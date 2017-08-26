@@ -1,0 +1,28 @@
+<template>
+    <require from="./edit-book"></require>
+    <require from="../value-converters/book-status"></require>
+    <require from='../attributes/tooltip'></require>
+    <require from="../value-converters/search-bold"></require>
+    <require from="../value-converters/highlight"></require>
+    
+    <li class="${book.read ? 'read-book' : ''} list-group-item au-animate" anim-enter="slideRightBigIn;{duration:2000}">    
+        <div class="book col-12">
+            <div class="book-options form-inline">
+                <div class="col-lg-7 col-md-2" innerhtml.bind="book.title | searchBold:searchTerm | highlight"></div> 
+                <div class="col-lg-3 col-md-5"> 
+                    <button class="read-button btn btn-success btn-sm" if.bind="!book.read" click.delegate="markRead()"> 
+                        <span class="hover-display"> <i class="fa fa-check" aria-hidden="true"></i> 
+                        </span> mark read
+                    </button> 
+                    <button class="btn btn-secondary btn-sm edit-button"  click.delegate="toggleEditMode()" disabled.bind="editMode"> edit</button>
+                </div>
+                
+                <span class="col-1"> 
+                    <i class="fa ${book.status | bookStatus}" aria-hidden="true"></i> 
+                </span>
+                <div class="col-1"> <span class="icon-button" click.delegate="removeBook()"  tooltip="title.bind:'Remove book from list'; placement.bind:'right'"> <i class="fa fa-trash" aria-hidden="true"></i> </span> </div>
+            </div>
+            <edit-book book.bind="book" genres.bind="genres" shelves.bind="shelves" containerless edit-mode.bind="editMode"></edit-book>
+        </div>
+    </li> 
+</template>

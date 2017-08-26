@@ -1,0 +1,27 @@
+<template>
+    <require from="./heading.html"></require>
+    <heading text.bind="'users'"></heading>
+
+    <div class="card">
+        <table show.bind="users" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="user of users">
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>
+                        <a class="btn btn-secondary" route-href="route: user-detail; params.bind: {name:user.name}" >
+                            details
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</template>

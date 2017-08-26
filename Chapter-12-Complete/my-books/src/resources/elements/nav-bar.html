@@ -1,0 +1,26 @@
+<template>
+    <require from="../value-converters/auth-filter"></require>
+    <nav>
+        <ul class="nav nav-pills float-right">
+            <li repeat.for="row of router.navigation | authFilter"
+                class="nav-item">
+                <a class="nav-link  ${row.isActive ? 'active' : ''}" href.bind="row.href">
+                    ${row.title}
+                    <i if.bind="row.settings.icon"
+                        class="fa fa-${row.settings.icon}">
+                    </i>
+                </a>
+            </li>
+            
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-user-circle-o" aria-hidden="true"></i> ${user.name}</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" click.delegate="logOut()">
+                        logout
+                    </a>
+                </div>
+            </li>
+  
+        </ul>
+    </nav>
+</template>
