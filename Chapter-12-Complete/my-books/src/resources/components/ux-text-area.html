@@ -1,0 +1,89 @@
+<template>
+    <style>
+        .text-area {
+            position: relative;
+        }
+
+        .text-area button {
+            position: absolute;
+            bottom: 8px;
+        }
+
+        .text-area button.cancel {
+            right: 10px;
+        }
+
+        .text-area button.ok {
+            right: 68px;
+        }
+
+        .text-area textarea {
+            margin-top: 10px;
+            background-color: #f5f5f5;
+            width: 100%;
+        }
+
+        .text-block {
+            background-color: rgba(158, 158, 158, 0.18);
+            height: 100px;
+            padding: 10px;
+            border-right-width: .25rem;
+            border-radius: .25rem;
+        }
+
+        .text-block:hover {
+            cursor: pointer;
+            background-color: rgba(158, 158, 158, 0.44);
+        }
+
+        .btn {
+            border: 1px solid transparent;
+            line-height: 1.25;
+            border-radius: .25rem;
+            transition: all .15s ease-in-out;
+        }
+
+        .btn-success {
+            color: white;
+            background-color: #009688;
+        }
+
+        .btn-success:hover {
+            background-color: #4DB6AC;
+        }
+
+        .btn-danger {
+            color: white;
+            background-color: #BDBDBD;
+        }
+
+        .btn-danger:hover {
+            background-color: #E0E0E0;
+        }
+
+        .box-sizing-border{
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+    </style>
+    <div class="text-area" show.bind="editMode">
+        <textarea ref="element" 
+                rows="${rows}" 
+                value.bind="textContentTemp"
+                class="box-sizing-border">
+        </textarea>  
+        <button class="cancel btn btn-danger" click.delegate="cancel()">
+            cancel
+        </button>
+        <button class="ok btn btn-success" click.delegate="ok()">
+            ok
+        </button>
+    </div>
+    
+    <p class="text-block" 
+        click.delegate="edit()" 
+        show.bind="!editMode">
+        ${textContent}
+    </p>
+</template>

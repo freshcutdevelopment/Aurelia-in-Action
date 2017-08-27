@@ -1,0 +1,34 @@
+<template>
+  <compose containerless view="./au-card-styles.html"></compose>
+  <require from="./ux-thumbnail-image"></require>
+  <require from="./ux-text-area"></require>
+  <require from="./ux-tags"></require>
+  <div class="book-card">
+    <div class="image-wrapper">
+      
+      <ux-thumbnail-image img-src.bind="book.imgSrc" 
+                          img-href.bind="imageHref"
+                          img-cap.bind="book.imgCap"
+                          position-absolute.bind="true">
+      </ux-thumbnail-image>
+
+      <div class="book-card-body">
+        <h3 class="book-card-title">${book.title}</h3>
+        <span class="book-card-subtitle">by
+          <a href.bind="book.authorBioUrl">
+            ${book.author}
+          </a>
+        </span>
+        
+        <ux-text-area text-content.bind="book.description">
+
+        </ux-text-area>
+        
+        <div class="book-card-footer">
+            <ux-tags tags.bind="book.tags"></ux-tags>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>

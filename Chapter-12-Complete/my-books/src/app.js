@@ -71,6 +71,15 @@ export class App {
         layoutViewModel: "main-layout"
       },
       {
+        route: "example",
+        name: "example",
+        moduleId: "./resources/elements/example",
+        title: "example",
+        nav:true,
+        settings: { auth: true },
+        layoutViewModel: "main-layout"
+      },
+      {
         route: "login",
         name: "login",
         moduleId: "./resources/elements/login",

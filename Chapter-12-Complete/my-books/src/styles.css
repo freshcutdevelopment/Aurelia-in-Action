@@ -260,14 +260,12 @@ ul.ratings li{
 
 }
 
-.padded{
-  margin-right:3px;
-}
-
+/** Forms **/
 input.number{
   max-width: 60px;
 }
 
+/** Responsive layout for book component **/
 @media only screen and (max-width: 1200px)  {
   .edit-book.visible{
     height: 550px;
@@ -288,12 +286,29 @@ input.number{
 .badge-default {
     background-color: rgba(70, 74, 76, 0.59);
 }
+
 /** Add subtle shadow to elements - Reference Materialize CSS - http://materializecss.com/shadow.html **/
 .z-depth-1 {
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
 }
 
+/** Login page **/
 .card .login-error{
   background-color:white;
   color:#d9534f;
+}
+/**********************/
+
+/** Example page **/
+.example-section{
+  margin-bottom:20px;
+}
+
+/** Utilities **/
+.padded{
+  margin-right:3px;
+}
+
+.ux-card h4{
+  color:#26a69a;
 }

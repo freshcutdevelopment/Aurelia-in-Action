@@ -4,7 +4,12 @@
     <require from='../attributes/tooltip'></require>
     <require from="../value-converters/search-bold"></require>
     <require from="../value-converters/highlight"></require>
-    
+    <style>
+        -dialog-overlay.active {
+            background-color: black;
+            opacity: .5;
+        }
+    </style>
     <li class="${book.read ? 'read-book' : ''} list-group-item au-animate" anim-enter="slideRightBigIn;{duration:2000}">    
         <div class="book col-12">
             <div class="book-options form-inline">
@@ -15,6 +20,7 @@
                         </span> mark read
                     </button> 
                     <button class="btn btn-secondary btn-sm edit-button"  click.delegate="toggleEditMode()" disabled.bind="editMode"> edit</button>
+                     <button class="btn btn-info btn-sm edit-button" click.delegate="share()"> <i class="fa fa-share"></i> share</button>
                 </div>
                 
                 <span class="col-1"> 
