@@ -1,0 +1,15 @@
+<template>
+    <require from="../attributes/tooltip"></require>
+    <ul class="books list-group list-group-flush">
+        <li class="list-group-item" repeat.for="book of books">
+            <div class="col-10">${book.title}</div> 
+            <div class="col-1"> 
+                <span class="remove-button" 
+                    click.delegate="removeBook($index)" 
+                    tooltip="title.bind:'Remove book from list'; placement.bind:'right'"> 
+                    <i class="fa fa-trash" aria-hidden="true"></i> 
+                </span> 
+            </div>
+        </li>
+    </ul>
+</template>
