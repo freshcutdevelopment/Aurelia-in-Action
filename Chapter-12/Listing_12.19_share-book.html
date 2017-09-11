@@ -1,0 +1,26 @@
+<template>
+    <require from="./share-book-card"></require>
+    <require from="../components/ux-font-block.html"></require>
+    <ux-dialog>
+        <ux-dialog-body>
+            <ux-font-block   
+                    show.bind="state != 'sharing'" 
+                    color.bind="fontColor" 
+                    font.bind="font">
+            </ux-font-block>
+            <share-book-card 
+                    show.bind="state == 'sharing'" 
+                    book.bind="book">
+            </share-book-card>
+        </ux-dialog-body>
+        <ux-dialog-footer 
+                    show.bind="state == 'sharing'">
+            <button click.trigger="controller.cancel()">
+                Cancel
+            </button>
+            <button click.trigger="ok(book)">
+                Ok
+            </button>
+        </ux-dialog-footer>
+    </ux-dialog>
+</template>

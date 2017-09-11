@@ -1,0 +1,12 @@
+<template>
+    <require from="./card-styles.css" as="scoped"></require>     
+    <template id="info-card">
+        <div class="card-content">
+            <slot name="header">To be replaced with header</slot>
+            <div class="card-body">
+                <slot name="body"><p>To be replaced with body </p></slot>
+            </div>
+        </div>
+    </template>
+</template>
+      

@@ -1,0 +1,67 @@
+<html>
+        <head></head>
+        <body>
+            <template id="info-card">
+                <style>
+                    .card-content { 
+                        border:1px solid grey;    
+                        width: 500px;
+                        height: 150px;
+                        margin-bottom:10px;
+                        padding:20px;
+                        color: #777;
+                        background-color: #F7F7F7;
+                        font-family: 'Source Sans Pro', 
+                         Helvetica, 'Open Sans', sans-serif;
+                    } 
+                    
+                    .card-body{
+                        background-color:white;
+                        padding:10px;
+                        padding-bottom: 30px;
+                    }
+                </style>
+                <div class="card-content">
+                    <slot name="header">To be replaced with header</slot>
+                    <div class="card-body">
+                        <slot name="body">
+                            <p>To be replaced with body </p>
+                        </slot>
+                    </div>
+                </div>
+            </template>
+        
+            <script>
+              customElements.define('x-info-card',
+                class extends HTMLElement {
+                    constructor() {
+                    super();
+                    var template = document
+                        .getElementById('info-card')
+                        .content;
+                    const shadowRoot = this.attachShadow({mode: 'open'})
+                        .appendChild(template.cloneNode(true));
+                }
+            });
+            </script>
+        
+            <x-info-card>
+                <span slot="header">
+                     <h1>slot header content - card 1</h1>
+                </span>
+                <span slot="body">
+                     <span>slot body content - card 1</span>
+                </span>
+            </x-info-card>
+        
+            <x-info-card>
+                <span slot="header">
+                     <h1>slot header content - card 2</h1>
+                </span>
+                <span slot="body">
+                     <span>slot body content - card 2</span>
+                </span>
+            </x-info-card>
+        </body>
+    </html>
+    

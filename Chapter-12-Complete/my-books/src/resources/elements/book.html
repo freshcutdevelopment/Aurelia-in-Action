@@ -4,12 +4,7 @@
     <require from='../attributes/tooltip'></require>
     <require from="../value-converters/search-bold"></require>
     <require from="../value-converters/highlight"></require>
-    <style>
-        -dialog-overlay.active {
-            background-color: black;
-            opacity: .5;
-        }
-    </style>
+    
     <li class="${book.read ? 'read-book' : ''} list-group-item au-animate" anim-enter="slideRightBigIn;{duration:2000}">    
         <div class="book col-12">
             <div class="book-options form-inline">
@@ -20,13 +15,13 @@
                         </span> mark read
                     </button> 
                     <button class="btn btn-secondary btn-sm edit-button"  click.delegate="toggleEditMode()" disabled.bind="editMode"> edit</button>
-                     <button class="btn btn-info btn-sm edit-button" click.delegate="share()"> <i class="fa fa-share"></i> share</button>
+                     <button class="btn btn-secondary btn-sm edit-button" click.delegate="share()" > <i class="fa fa-share-alt" aria-hidden="true"></i></button>
                 </div>
                 
                 <span class="col-1"> 
                     <i class="fa ${book.status | bookStatus}" aria-hidden="true"></i> 
                 </span>
-                <div class="col-1"> <span class="icon-button" click.delegate="removeBook()"  tooltip="title.bind:'Remove book from list'; placement.bind:'right'"> <i class="fa fa-trash" aria-hidden="true"></i> </span> </div>
+                <div class="col-1"> <span class="icon-button" click.delegate="removeBook()"  tooltip="title.bind:'Remove book from list'; placement.bind:'top'"> <i class="fa fa-trash" aria-hidden="true"></i> </span> </div>
             </div>
             <edit-book book.bind="book" genres.bind="genres" shelves.bind="shelves" containerless edit-mode.bind="editMode"></edit-book>
         </div>

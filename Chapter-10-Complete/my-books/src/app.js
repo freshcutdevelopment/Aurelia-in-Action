@@ -78,7 +78,7 @@ export class App {
         layoutView: "login-layout.html"
       },
       {
-        route: "legacy-users",
+        route: "legacy-users/*",
         redirect: "users"
       }
     ]);

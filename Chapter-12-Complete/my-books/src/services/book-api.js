@@ -6,12 +6,9 @@ export class BookApi{
     
     constructor(http){
         this.http = http;
-        
-        const baseUrl = 'http://localhost:8333/api/';
     }
 
     getBooks(){
-
         return this.http.fetch('books')
                  .then(response => response.json())
                  .then(books => {

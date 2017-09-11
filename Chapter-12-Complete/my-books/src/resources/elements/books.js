@@ -7,7 +7,6 @@ import _ from 'lodash';
 @inject(BookApi, EventAggregator, BookApiJSONP)
 export class Books {
 
-
   constructor(bookApi, eventAggregator,bookApiJSONP){
     this.bookTitle = ""; 
     this.books = [];
