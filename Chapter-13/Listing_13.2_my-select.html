@@ -1,0 +1,8 @@
+<template>
+    <div class="form-inline">
+      <select class="form-control">
+        <option value="">select a value</option>
+        <option repeat.for="option of options" model.bind="option">${option}</option>
+      </select>  
+    </div>
+  </template>

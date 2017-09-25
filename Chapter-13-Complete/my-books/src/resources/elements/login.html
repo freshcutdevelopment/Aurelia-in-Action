@@ -1,0 +1,36 @@
+<template>
+    <div slot="header"><h1 class="brand-heading">my-books</h1></div>
+    <div slot="form" class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="card">
+                <div class="card-header">
+                    <h1>login</h1>
+                </div>
+                <form class="card-block form-inline" submit.trigger="logIn()">
+                    <label class="sr-only" for="userName">email</label>
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon">@</div>
+                        <input type="text" class="form-control" id="userName" value.bind="userName" placeholder="email">
+                    </div>
+
+                    <label class="sr-only" for="password">password</label>
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="password" class="form-control" id="password" value.bind="password" placeholder="password">
+                    </div>
+                    <button type="submit" class="btn btn-success" disabled.bind="!(userName.length > 0 && password.length > 0)">
+                        login
+                    </button>
+      
+                </form>
+                <div class="card card-outline-danger text-center" show.bind="errorMessage.length > 0">
+                    <div class="card-block  login-error">
+                        ${errorMessage}
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    welcome back to my-books
+                </div>
+        </div>  
+    </div>
+
+</template>

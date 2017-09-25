@@ -1,0 +1,22 @@
+<template>
+    <require from="style.css"></require>
+    
+    <require from="bootstrap-select"></require>
+    <require from="bootstrap-select-custom-element"></require>
+    <section>
+        <h1>${message}</h1>
+        <hr/>
+        
+        <h2>useView</h2>
+        <hr/>
+        <bootstrap-select options.bind="selectOptions"></bootstrap-select>
+        
+        <h2>explicit custom elements</h2>
+        <hr/>
+        <select-custom-element options.bind="selectOptions"></select-custom-element>
+        
+        <hr/>
+    </section>  
+  
+  </template>
+  

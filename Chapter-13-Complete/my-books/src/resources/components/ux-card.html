@@ -1,0 +1,31 @@
+<template>
+    <style>
+        h4{
+            color:#26a69a;
+        }
+    </style>
+    <div class="card" style="width: 40rem;">
+    <h4 class="card-header">
+        <slot name="title">Title</slot>
+    </h4>
+    <div class="card-block row">
+        <div class="col-md-4" >
+            <slot name="card-image"></slot>
+        </div>
+        <div class="col-md-8">
+            <h6 class="card-subtitle mb-2 text-muted">
+                <slot name="sub-title">Subtitle</slot>
+            </h6>
+            <div class="card-text">
+                <slot name="card-text">
+                    content
+                </slot>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <slot name="card-footer">
+            footer
+        </slot>
+    </div>
+</template>

@@ -1,0 +1,55 @@
+<template>
+    <require from="../attributes/au-selectize"></require>
+    <require from="selectize/dist/css/selectize.default.css"></require>
+    <form if.bind="user" class="form card" submit.trigger="saveUser()">
+        <div class="card-block">
+            <h4 class="card-title">User details <i class="fa fa-user" ></i></h4>
+            <h6 class="card-subtitle mb-2 text-muted">view / edit user details</h6>
+            <hr/>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input readonly 
+                        name="name" class="form-control" 
+                        placeholder='enter a name' 
+                        value.bind="user.name">
+                </input>
+                <label for="first_name">First Name</label>
+                <input name="first_name" class="form-control" 
+                        placeholder='enter first name' 
+                        value.bind="user.first_name">
+                </input>
+                <label for="surname">Surname</label>
+                <input name="surname" class="form-control" 
+                        placeholder='enter a surname' 
+                        value.bind="user.surname">
+                </input>
+                <label for="email">Email</label>
+                <input name="email" class="form-control" 
+                        placeholder='enter an email address' 
+                        value.bind="user.email">
+                </input>
+                <label for="select-country">Country</label>
+                <div class="row no-gutter">
+                    <div class="col-md-3">
+                        <select id="select-country" if.bind="selected"
+                            au-selectize="url: countries; valueField: code; labelField:name; searchField:name; selected.bind : selected" 
+                            class="demo-default" 
+                            placeholder="Select user's country..."
+                            change.delegate="countryChanged($event)">
+                            <option value.bind="selected.code">${selected.name}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-secondary col-sm-2 no-gutter" route-href="route: users" >
+                <i class="fa fa-arrow-left"></i> back 
+            </a>
+            <button type="submit" class="btn btn-primary col-sm-2 push-sm-8" 
+                    disabled.bind="user.name.length == 0">
+                save
+            </button>  
+        </div>
+    </form>
+</template>

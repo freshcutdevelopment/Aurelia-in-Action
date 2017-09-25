@@ -1,0 +1,34 @@
+<template>
+    <require from="./inspect-binding-behavior"></require>
+    <require from="./style.css"></require>
+    
+    <section>
+        <h1>${message & inspect}</h1>
+        
+        <hr/>
+        
+        <input value.bind="message & inspect"></input>
+        
+        <input type="checkbox" 
+            checked.bind="checked & inspect" 
+            value.one-way="isChecked & inspect">
+        <hr/>
+        
+        <h2>Bindings</h2>
+        <table class="table table-striped table-bordered">
+        <tr>
+            <th>Type</th>
+            <th>Source</th>
+            <th>Target</th>
+            <th>Mode</th>
+        </tr>
+        <tr repeat.for="binding of bindings">
+            <td>${binding.type}</td>
+            <td>${binding.source}</td>
+            <td>${binding.target}</td>
+            <td>${binding.mode == 1 ? "one-way" : "two-way" }</td>
+            
+        </tr>
+        </table>
+    </section>
+  </template>  

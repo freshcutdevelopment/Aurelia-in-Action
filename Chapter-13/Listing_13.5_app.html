@@ -1,0 +1,23 @@
+<template>
+    <require from="style.css"></require>
+    <require from="bootstrap-select"></require>
+    <require from="alerter"></require>
+    <section>
+        <h1>${message}</h1>
+        <hr/>
+
+        <h2>useView</h2>
+        <hr/>
+        <bootstrap-select options.bind="selectOptions"></bootstrap-select>
+
+        <h2>no view</h2>
+        <hr/>
+        <alerter></alerter>
+
+        <hr/>
+        <h2>inline view</h2>
+        <alerter-inline></alerter-inline>
+
+    </section>
+
+</template>
