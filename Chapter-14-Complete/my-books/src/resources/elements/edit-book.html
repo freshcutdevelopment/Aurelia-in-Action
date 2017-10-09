@@ -1,0 +1,78 @@
+<template>
+    <require from='./star-rating'></require>
+    <require from='../attributes/tooltip'></require>
+    <require from='../value-converters/date-format'></require>  
+    <div ref="editFormDiv" class="edit-book ${editMode ? 'visible': 'hidden'} transformable">
+        <div class="wrapper">
+            <div class="row">
+                <span class="col-3 offset-md-10"> <small class="text-muted">${book.readDate | dateFormat} </small></span>
+            </div>
+            <form>
+                <div class="form-group row">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" value.bind="temporaryBook.title & validate" placeholder="book title">
+                </div>
+                <div class="form-group row">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" value.bind="temporaryBook.description" placeholder="book description"></textarea>
+                </div>
+                <hr/>
+                <div class="form-inline row">
+                    <div class="form-group">
+                        <label for="genre" class="mb-2 mr-sm-2 mb-sm-0">Genre</label>
+                        <select name="genre" class="form-control mb-2 mr-sm-2 mb-sm-0" value.bind="selectedGenre">
+                            <option model.bind="null">select genre...</option>
+                            <option repeat.for="genre of genres"
+                                    model.bind="genre">
+                                ${genre.name}
+                            </option>
+                        </select>
+                    </div>
+                    <star-rating 
+                        view-model.ref="starRatingViewModel" 
+                        ref="ratingElement" 
+                        rating.bind="temporaryBook.rating">
+                    </star-rating>
+                </div>
+                <hr/>
+                <div class="form-inline row">
+                    <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" checked.bind="temporaryBook.ownACopy"> Own a copy?
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="times-read" class="mb-2 mr-sm-2 mb-sm-0">Times Read</label>
+                        <input name="times-read" class="form-control number mb-2 mr-sm-2 mb-sm-0" placeholder="0" value.bind="temporaryBook.timesRead & validate"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="shelves" class="mb-2 mr-sm-2 mb-sm-0">Shelves</label>
+                        <select show.bind="editingShelves" name="shelves" class="form-control mb-1 mr-sm-1 mb-sm-0 fade-in" multiple value.bind="selectedShelves">
+                            <option repeat.for="shelf of shelves"
+                                    model.bind="shelf">
+                                ${shelf.name}
+                            </option>
+                        </select>
+                        <button show.bind="editingShelves" click.delegate="unToggleEditShelves()" class="btn btn-secondary btn-sm">ok</button>
+                        <div class="mb-2 mr-sm-2 mb-sm-0" show.bind="!editingShelves">
+                            <span repeat.for="shelf of temporaryBook.shelves" class="badge badge-pill badge-default mb-2 mr-sm-2 mb-sm-0"> ${shelf}</span> 
+                            <span class="icon-button" click.delegate="toggleEditShelves()" tooltip="title.bind:'edit shelves'; placement.bind:'right'"> <i class="fa fa-pencil" aria-hidden="true"></i> </span> 
+                        </div> 
+                    </div>
+                </div>
+                <hr/>
+                <div class="form-inline col-3 offset-lg-10 col-sm-12">
+                    <div class="custom-control" show.bind="loading">
+                        <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="custom-control brand-highlight" show.bind="saved">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                    </div>
+                    <button class="btn btn-secondary btn-sm padded" click.delegate="save()" disabled.bind="!canSave"> save</button>
+                    <button class="btn btn-secondary btn-sm" click.delegate="cancel()"> <span class="cancel"> <i class="fa fa-minus-circle" aria-hidden="true"></i> </span> cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,297 @@
+/***********************************************************************************************************/
+/** Bootstrap theme specific CSS - Reference https://v4-alpha.getbootstrap.com/examples/narrow-jumbotron/ **/
+/***********************************************************************************************************/
+
+/* Space out content a bit */
+body {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  /* Everything but the jumbotron gets side spacing for mobile first views */
+  .header,
+  .footer {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+  
+  /* Custom page header */
+  .header {
+    padding-bottom: 1rem;
+    border-bottom: .05rem solid #e5e5e5;
+  }
+  
+  /* Make the masthead heading the same height as the navigation */
+  .header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 3rem;
+  }
+  
+  /* Custom page footer */
+  .footer {
+    padding-top: 1.5rem;
+    color: #777;
+    border-top: .05rem solid #e5e5e5;
+  }
+  
+  .container-narrow > hr {
+    margin: 2rem 0;
+  }
+  
+  .jumbotron {
+    text-align: center;
+    border-bottom: .05rem solid #e5e5e5;
+  }
+  
+  .jumbotron .btn {
+    padding: .75rem 1.5rem;
+    font-size: 1.5rem;
+  }
+  
+  
+  /* Responsive: Portrait tablets and up */
+  @media screen and (min-width: 48em) {
+    /* Remove the padding we set earlier */
+    .header,
+    .footer {
+      padding-right: 0;
+      padding-left: 0;
+    }
+    /* Space out the masthead */
+    .header {
+      margin-bottom: 2rem;
+    }
+    /* Remove the bottom border on the jumbotron for visual effect */
+    .jumbotron {
+      border-bottom: 0;
+    }
+  }
+  
+  /***********************************************************************************************************/
+  /** End Bootstrap theme specific CSS                                                                      **/
+  /***********************************************************************************************************/
+  
+  /***********************************************************************************************************/
+  /** Custom my-books CSS **/
+  /***********************************************************************************************************/
+  body{
+    background-color:#f5f8fa;
+  }
+  
+  /* Add box-shadow to jumbotron */
+  .jumbotron{
+    background-color:white;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+  }
+  
+  /* Add brand highlight color (theme) */
+  .brand-highlight{
+    color:#2ecc71;
+  }
+  
+  /* Add nav bar brand highlight color (theme) */
+  .nav-pills .nav-item.show .nav-link, .nav-pills .nav-link.active {
+      color: #fff;
+      background-color: #27ae60;
+  }
+  
+  /* Add brand button-success color (theme) */
+  .btn-success{
+      background-color: #27ae60;
+  }
+  
+  .btn-success:hover {
+      background-color: #2ecc71;
+  }
+  
+  .btn-success:disabled{
+    background-color: #43bd99;
+  }
+  
+  .btn-outline-success {
+      color: #27ae60;
+      border-color: #27ae60;
+  }
+  
+  .btn-outline-success:hover{
+      color: white;
+      border-color: #27ae60;
+      background-color: #27ae60;
+  }
+  
+  .cancel{
+    color:#d9534f;
+  }
+  
+  .tap-right{
+    margin-left:10px;
+  }
+  
+  .page-heading{
+    border-bottom: 2px solid #2ecc71;
+  }
+  
+  /** Hover style button for font-awesome icons **/
+  .icon-button{
+    color: rgba(70, 74, 76, 0.78);
+  }
+  
+  .icon-button, .icon-button:hover{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  
+  .icon-button:hover{
+      background-color: #eceeef;
+      cursor: pointer;
+      color: #292b2c;
+  }
+  
+  /** Hide some content until we receive a hover event **/
+  .hover-display{
+    display:none;
+  }
+  
+  /** Read button state changes **/
+  .read-button:hover, .edit-button:hover{
+    cursor:pointer;
+  }
+  
+  .read-button:hover span.hover-display{
+    display:initial;
+  }
+  
+  .read-button:disabled span.hover-display{
+    display:none;
+  }
+  
+  /** Book list styles **/
+  li.read-book{
+    border-left: 3px solid #2ecc71 !important;
+  }
+  
+  .book-even{
+    background-color: #eceeef;;
+  }
+  
+  /** Animations **/
+  
+  .books>li.au-enter {
+      opacity: 0!important;
+  }
+  
+  .books>li.au-enter-active {
+      -webkit-animation: fadeIn 2s;
+      animation: fadeIn 2s;
+  }
+  
+  .books>li.au-leave-active {
+      -webkit-animation: fadeOut 0.5s;
+      animation: fadeOut 0.5s;
+  }
+  
+  .fade-in.aurelia-hide-add {
+    animation: fadeOut 0.3s ease-out;
+  }
+  .fade-in.aurelia-hide-remove {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  @keyframes fadeIn {
+      0%   { opacity: 0; }
+      100% { opacity: 1; }
+  }
+  
+  @keyframes fadeOut {
+      0%   { opacity: 1; }
+      100% { opacity: 0; }
+  }
+  
+  .transformable {
+      -webkit-transition: height 100ms linear;
+      -moz-transition: height 100ms linear;
+      -o-transition: height 100ms linear;
+      -ms-transition: height 100ms linear;
+      transition: height 100ms linear;
+  }
+  
+  /** End Animations **/
+  
+  /** edit-book panel styles **/
+  .edit-book.hidden{
+    height: 0px;
+  }
+  
+  .edit-book.hidden div.wrapper{
+    display: none;
+  }
+  
+  .edit-book.visible{
+    height: 480px;
+    background-color: #f7f7f9;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-top: 2px solid #ccc;
+  }
+  
+  /** ratings component **/
+  ul.ratings li{
+    display: inline;
+    list-style-type: none;
+    padding-right: 20px;
+  }
+  
+  .star:hover{
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .star.rated{
+    color:rgb(255, 204, 0);
+  
+  }
+  
+  /** Forms **/
+  input.number{
+    max-width: 60px;
+  }
+  
+  /** Responsive layout for book component **/
+  @media only screen and (max-width: 1200px)  {
+    .edit-book.visible{
+      height: 550px;
+    }
+  }
+  
+  @media only screen and (max-width: 750px)  {
+    .edit-book.visible{
+      height: 650px;
+    }
+  }
+  
+  @media only screen and (max-width: 550px)  {
+    .edit-book.visible{
+      height: 850px;
+    }
+  }
+  
+  .badge-default {
+      background-color: rgba(70, 74, 76, 0.59);
+  }
+  
+  /** Login page **/
+  .card .login-error{
+    background-color:white;
+    color:#d9534f;
+  }
+  
+  /** Utilities **/
+  .padded{
+    margin-right:3px;
+  }

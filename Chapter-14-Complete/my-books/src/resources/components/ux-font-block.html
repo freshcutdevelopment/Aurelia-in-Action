@@ -1,0 +1,16 @@
+<template bindable="font, color">
+    <style>
+        .font-block{
+            width: 280px;
+            height: 150px;
+            padding:50px;
+            background-color:#f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+    <div class="font-block">
+       <span css.bind="color"><i class="${font}"></i></span> 
+    </div>
+</template>

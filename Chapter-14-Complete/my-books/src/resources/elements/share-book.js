@@ -27,6 +27,6 @@ export class ShareBook{
         this.state = "complete";
         this.font  = this.completedFont;
         this.fontColor = this.completedStyle;
-        setTimeout(_ => this.controller.ok(book) , 800);
+        setTimeout(_ => this.controller.ok(book) , 500);
     }
 }
