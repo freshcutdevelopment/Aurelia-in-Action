@@ -186,12 +186,6 @@
             "resources": []
           },
           {
-            "name": "aurelia-plugins-jwt-decode",
-            "main": "index",
-            "path": "../node_modules/aurelia-plugins-jwt-decode/dist/amd",
-            "resources": []
-          },
-          {
             "name": "aurelia-dialog",
             "main": "aurelia-dialog",
             "path": "../node_modules/aurelia-dialog/dist/amd",
