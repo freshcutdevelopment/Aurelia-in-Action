@@ -1,26 +1,27 @@
 export class PageObjectLogin {
-    
-      constructor() {
-    
-      }
+  constructor() {}
 
-      getHeader() {
-        return element(by.tagName('h1.brand-heading')).getText();
-      }
-      
-      setUsername(value) {
-        return element(by.valueBind('userName')).clear().sendKeys(value);
-      }
-    
-      setPassword(value) {
-        return element(by.valueBind('password')).clear().sendKeys(value);
-      }
+  getHeader() {
+    return element(by.tagName("h1.brand-heading")).getText();
+  }
 
-      pressSubmitButton() {
-        return element(by.css('button[type="submit"]')).click();
-      }
+  setUsername(value) {
+    return element(by.valueBind("userName"))
+      .clear()
+      .sendKeys(value);
+  }
 
-      getLoginError() {
-        return element(by.css('.card-body.login-error')).getText();
-      }
-    }
+  setPassword(value) {
+    return element(by.valueBind("password"))
+      .clear()
+      .sendKeys(value);
+  }
+
+  pressSubmitButton() {
+    return element(by.css('button[type="submit"]')).click();
+  }
+
+  getLoginError() {
+    return element(by.css(".card-body.login-error")).getText();
+  }
+}

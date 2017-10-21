@@ -1,11 +1,7 @@
 export class PageObjectApp {
-    
-      constructor() {
-    
-      }
+  constructor() {}
 
-      getCurrentPageTitle() {
-        return browser.getTitle();
-      }
-      
-    }
+  getCurrentPageTitle() {
+    return browser.getTitle();
+  }
+}

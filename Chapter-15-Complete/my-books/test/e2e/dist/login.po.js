@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -12,15 +12,15 @@ var PageObjectLogin = exports.PageObjectLogin = function () {
   }
 
   PageObjectLogin.prototype.getHeader = function getHeader() {
-    return element(by.tagName('h1.brand-heading')).getText();
+    return element(by.tagName("h1.brand-heading")).getText();
   };
 
   PageObjectLogin.prototype.setUsername = function setUsername(value) {
-    return element(by.valueBind('userName')).clear().sendKeys(value);
+    return element(by.valueBind("userName")).clear().sendKeys(value);
   };
 
   PageObjectLogin.prototype.setPassword = function setPassword(value) {
-    return element(by.valueBind('password')).clear().sendKeys(value);
+    return element(by.valueBind("password")).clear().sendKeys(value);
   };
 
   PageObjectLogin.prototype.pressSubmitButton = function pressSubmitButton() {
@@ -28,7 +28,7 @@ var PageObjectLogin = exports.PageObjectLogin = function () {
   };
 
   PageObjectLogin.prototype.getLoginError = function getLoginError() {
-    return element(by.css('.card-body.login-error')).getText();
+    return element(by.css(".card-body.login-error")).getText();
   };
 
   return PageObjectLogin;
