@@ -2,7 +2,7 @@
     <require from="../attributes/au-selectize"></require>
     <require from="selectize/dist/css/selectize.default.css"></require>
     <form if.bind="user" class="form card" submit.trigger="saveUser()">
-        <div class="card-block">
+        <div class="card-body">
             <h4 class="card-title">User details <i class="fa fa-user" ></i></h4>
             <h6 class="card-subtitle mb-2 text-muted">view / edit user details</h6>
             <hr/>
@@ -42,11 +42,11 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer">
-            <a class="btn btn-secondary col-sm-2 no-gutter" route-href="route: users" >
+        <div class="row">
+            <a class="btn btn-secondary col-sm-2 mr-auto no-gutter" route-href="route: users" >
                 <i class="fa fa-arrow-left"></i> back 
             </a>
-            <button type="submit" class="btn btn-primary col-sm-2 push-sm-8" 
+            <button type="submit" class="btn btn-primary col-sm-2 col-auto" 
                     disabled.bind="user.name.length == 0">
                 save
             </button>  
