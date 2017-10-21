@@ -6,7 +6,7 @@
                 <div class="card-header">
                     <h1>login</h1>
                 </div>
-                <form class="card-block form-inline" submit.trigger="logIn()">
+                <form class="card-body form-inline" submit.trigger="logIn()">
                     <label class="sr-only" for="userName">email</label>
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon">@</div>
@@ -23,7 +23,7 @@
       
                 </form>
                 <div class="card card-outline-danger text-center" show.bind="errorMessage.length > 0">
-                    <div class="card-block  login-error">
+                    <div class="card-body  login-error">
                         ${errorMessage}
                     </div>
                 </div>

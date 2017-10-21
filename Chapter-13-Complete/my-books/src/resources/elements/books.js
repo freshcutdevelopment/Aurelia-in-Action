@@ -15,6 +15,7 @@ export class Books {
     this.bookApi = bookApi;
     this.eventAggregator = eventAggregator;
     this.bookApiJSONP = bookApiJSONP;
+    this.loaded = false;
   }
   
   addBook () {
@@ -43,8 +44,10 @@ export class Books {
 
   loadBooks(){
       this.bookApi.getBooks()
-              .then(savedBooks => 
-                    this.books = savedBooks);
+              .then(savedBooks => {
+                this.books = savedBooks;
+                this.loaded = true;
+              });
   }
 
   loadShelves(){
