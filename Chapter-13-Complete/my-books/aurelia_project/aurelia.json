@@ -94,7 +94,7 @@
         "prepend": [
           "node_modules/bluebird/js/browser/bluebird.core.js",
           "node_modules/aurelia-cli/lib/resources/scripts/configure-bluebird.js",
-          "node_modules/tether/dist/js/tether.min.js",
+          "node_modules/popper.js/dist/umd/popper.min.js",
           "node_modules/requirejs/require.js"
         ],
         "dependencies": [
@@ -141,18 +141,19 @@
             "main": "aurelia-fetch-client",
             "path": "../node_modules/aurelia-fetch-client/dist/amd",
             "resources": []
-          },
+          },    
+          "lodash",
           "jquery",
           {
             "name": "bootstrap",
             "path": "../node_modules/bootstrap/dist",
-            "main": "js/bootstrap.min",
+            "main": "js/bootstrap.min.js",
             "deps": [
               "jquery"
             ],
-            "exports": "$",
-            "resources": [
-              "css/bootstrap.css"
+           "exports": "$",
+           "resources": [
+             "css/bootstrap.css"
             ]
           },
           {
@@ -166,12 +167,6 @@
               "dist/css/selectize.default.css"
             ]
           },
-          {
-            "name": "font-awesome",
-            "path": "../node_modules/font-awesome/css",
-            "main": "font-awesome.css"
-          },
-          "lodash",
           "moment",
           {
             "name": "aurelia-validation",
@@ -183,12 +178,6 @@
             "name": "aurelia-http-client",
             "main": "aurelia-http-client",
             "path": "../node_modules/aurelia-http-client/dist/amd",
-            "resources": []
-          },
-          {
-            "name": "aurelia-plugins-jwt-decode",
-            "main": "index",
-            "path": "../node_modules/aurelia-plugins-jwt-decode/dist/amd",
             "resources": []
           },
           {

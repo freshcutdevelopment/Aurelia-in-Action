@@ -16,6 +16,7 @@
     "bluebird": "^3.4.1",
     "bootstrap": "^4.0.0-alpha.6",
     "font-awesome": "^4.7.0",
+    "jQuery": "^1.7.4",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "requirejs": "^2.3.2",
