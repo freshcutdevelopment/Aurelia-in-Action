@@ -99,7 +99,7 @@
         "prepend": [
           "node_modules/bluebird/js/browser/bluebird.core.js",
           "node_modules/aurelia-cli/lib/resources/scripts/configure-bluebird.js",
-          "node_modules/tether/dist/js/tether.min.js",
+          "node_modules/popper.js/dist/umd/popper.min.js",
           "node_modules/requirejs/require.js"
         ],
         "dependencies": [
@@ -151,17 +151,25 @@
           {
             "name": "bootstrap",
             "path": "../node_modules/bootstrap/dist",
-            "main": "js/bootstrap.min",
-            "deps": ["jquery"],
-            "exports": "$",
-            "resources": ["css/bootstrap.css"]
+            "main": "js/bootstrap.min.js",
+            "deps": [
+              "jquery"
+            ],
+           "exports": "$",
+           "resources": [
+             "css/bootstrap.css"
+            ]
           },
           {
             "name": "selectize",
             "main": "dist/js/standalone/selectize.js",
             "path": "../node_modules/selectize",
-            "deps": ["jquery"],
-            "resources": ["dist/css/selectize.default.css"]
+            "deps": [
+              "jquery"
+            ],
+            "resources": [
+              "dist/css/selectize.default.css"
+            ]
           },
           {
             "name": "font-awesome",
@@ -180,12 +188,6 @@
             "name": "aurelia-http-client",
             "main": "aurelia-http-client",
             "path": "../node_modules/aurelia-http-client/dist/amd",
-            "resources": []
-          },
-          {
-            "name": "aurelia-plugins-jwt-decode",
-            "main": "index",
-            "path": "../node_modules/aurelia-plugins-jwt-decode/dist/amd",
             "resources": []
           },
           {

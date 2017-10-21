@@ -21,6 +21,6 @@ export class PageObjectLogin {
       }
 
       getLoginError() {
-        return element(by.css('.card-block.login-error')).getText();
+        return element(by.css('.card-body.login-error')).getText();
       }
     }
