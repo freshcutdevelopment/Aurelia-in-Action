@@ -2,6 +2,7 @@ import { AuthService } from "./services/auth-service";
 import { inject } from "aurelia-framework";
 import { HttpClient } from "aurelia-fetch-client";
 import { AuthorizeStep } from "./router-steps/authorization-step";
+import 'bootstrap';
 
 @inject(AuthService, HttpClient)
 export class App {

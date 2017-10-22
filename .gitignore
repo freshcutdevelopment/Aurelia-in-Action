@@ -3,3 +3,8 @@ node_modules
 .DS_STORE
 *-bundle.js
 *bundle.js.map
+*.log*
+Chapter-16-Complete/my-books/.firebaserc
+Chapter-16-Complete/my-books/firebase.json
+Chapter-16-Complete/my-books/scripts/
+Chapter-16-Complete/my-books/deploy/

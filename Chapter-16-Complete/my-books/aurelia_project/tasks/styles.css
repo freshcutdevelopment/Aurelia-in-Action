@@ -1,0 +1,296 @@
+/* Space out content a bit */
+body {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+/* Custom page header */
+.header {
+  padding-bottom: 1rem;
+  border-bottom: .05rem solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 3rem;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 1.5rem;
+  color: #777;
+  border-top: .05rem solid #e5e5e5;
+}
+
+.container-narrow > hr {
+  margin: 2rem 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: .05rem solid #e5e5e5;
+}
+.jumbotron .btn {
+  padding: .75rem 1.5rem;
+  font-size: 1.5rem;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 3rem 0;
+}
+.marketing p + h4 {
+  margin-top: 1.5rem;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 48em) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 2rem;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
+
+/** Custom CSS **/
+body{
+  background-color:#f5f8fa;
+}
+
+.jumbotron{
+  background-color:white;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+
+.brand-highlight{
+  color:#2ecc71;
+}
+
+.nav-pills .nav-item.show .nav-link, .nav-pills .nav-link.active {
+    color: #fff;
+    background-color: #27ae60;
+}
+
+.btn-success{
+    background-color: #27ae60;
+}
+
+.btn-success:hover {
+    background-color: #2ecc71;
+}
+
+.btn-success:disabled{
+  background-color: #43bd99;
+}
+
+.btn-outline-success {
+    color: #27ae60;
+    border-color: #27ae60;
+}
+
+.btn-outline-success:hover{
+    color: white;
+    border-color: #27ae60;
+    background-color: #27ae60;
+}
+
+.tap-right{
+  margin-left:10px;
+}
+
+.page-heading{
+  border-bottom: 2px solid #2ecc71;
+}
+
+.remove-button{
+  color: rgba(70, 74, 76, 0.78);
+}
+
+.remove-button, .remove-button:hover{
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.remove-button:hover{
+    background-color: #eceeef;
+    cursor: pointer;
+    color: #292b2c;
+}
+
+.hover-display{
+  display:none;
+}
+
+.read-button:hover, .edit-button:hover{
+  cursor:pointer;
+}
+
+.read-button:hover span.hover-display{
+  display:initial;
+}
+
+.read-button:disabled span.hover-display{
+  display:none;
+}
+
+li.read-book{
+  border-left: 3px solid #2ecc71 !important;
+}
+
+/** Animations **/
+
+.books>li.au-enter {
+    opacity: 0!important;
+}
+
+.books>li.au-enter-active {
+    -webkit-animation: fadeIn 2s;
+    animation: fadeIn 2s;
+}
+
+.books>li.au-leave-active {
+    -webkit-animation: fadeOut 0.5s;
+    animation: fadeOut 0.5s;
+}
+
+/* CSS3-Animations */
+@-webkit-keyframes fadeIn {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes fadeIn {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@-webkit-keyframes fadeOut {
+    0%   { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes fadeOut {
+    0%   { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/** End Animations **/
+
+.transformable {
+    -webkit-transition: height 100ms linear;
+    -moz-transition: height 100ms linear;
+    -o-transition: height 100ms linear;
+    -ms-transition: height 100ms linear;
+    transition: height 100ms linear;
+
+}
+
+.edit-book{
+}
+
+.edit-book.hidden{
+  height: 0px;
+}
+
+.edit-book.hidden div.wrapper{
+  display: none;
+}
+
+.edit-book.visible{
+  height: 355px;
+  background-color: #eceeef;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-top: 2px solid #ccc;
+}
+
+.edit-book.visible form{
+  display: inherit;
+}
+
+.auto-complete-wrapper{
+  width:200px;
+  position:relative;
+  margin: 20px;
+}
+
+.auto-complete.focused{
+  border: 2px solid #27ae60;
+}
+
+.auto-complete-menu{
+    position: absolute;
+    top: 95%;
+    left: 2.5%;
+    z-index: 100;
+    display: none;
+    width: 95%;
+    margin-bottom: 20px;
+    overflow: hidden;
+    background-color: #fff;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 0px 1px green;
+    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.auto-complete-menu ul li:hover{
+  background-color: #2ecc71;
+  color:white;
+}
+
+.auto-complete-menu.is-open{
+  display: block;
+}
+
+.cancel{
+  color:#d9534f;
+}
+
+ul.ratings li{
+  display: inline;
+  list-style-type: none;
+  padding-right: 20px;
+}
+
+.star:hover{
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.star.rated{
+  color:rgb(255, 204, 0);
+
+}
+
+.book-even{
+  background-color: #eceeef;;
+}
