@@ -4,7 +4,7 @@
     <heading text.bind="'books'"></heading>
 
     <div class="card">
-        <div class="card-block">
+        <div class="card-body">
           <form class="form-inline" submit.trigger="addBook()">
 
             <label for="book-title"></label>
@@ -30,9 +30,9 @@
                shelves.bind="shelves">
     </book-list>
     <div if.bind="books.length == 0" class="card card-outline-info mb-3 text-center">
-        <div class="card-block">
+        <div class="card-body">
             <h1><i class="fa fa-lightbulb-o"></i> Welcome</h1>
-            <blockquote class="card-blockquote">
+            <blockquote class="card-bodyquote">
             <p>Your bookshelf is looking bare. Add some books to get started.</p>
             </blockquote>
         </div>
