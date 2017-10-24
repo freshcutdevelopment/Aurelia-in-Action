@@ -54,22 +54,17 @@ export class EditBook{
                   'temporaryBook.ownACopy', 
                   'temporaryBook.genre', 
                   'saved', 
-                  'temporaryBook.shelves',
-                  'temporaryBook.timesRead')
+                  'temporaryBook.shelves')
     get canSave(){
-        if(!this.temporaryBook.Id) return false;
-        
-        return this.isDirty();
-    }
 
-    isDirty(){
-     
-        let differences = [];
-        _.forOwn(this.temporaryBook, (value, key) => {
-            return differences.push({different : this.book[key] != value, key : key} ); 
-        });
+        let clean = this.temporaryBook.title == this.book.title && 
+               this.temporaryBook.genre == this.book.genre &&
+               this.temporaryBook.rating == this.book.rating &&
+               this.temporaryBook.ownACopy == this.book.ownACopy &&
+               this.temporaryBook.description == this.book.description &&
+               this.temporaryBook.shelves == this.book.shelves;
 
-        return differences.filter(d => d.different).length > 0;
+        return !clean;
     }
 
     resetTempBook(){

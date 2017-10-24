@@ -40,7 +40,7 @@ export class Books {
     this.loadBooks();
     this.loadShelves();
     this.loadGenres();
-    this.loadBooksJsonp();
+   // this.loadBooksJsonp(); --> Enable this to see a JSONP example
   }
 
   loadBooks(){

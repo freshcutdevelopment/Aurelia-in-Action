@@ -157,6 +157,11 @@
             ]
           },
           {
+            "name": "font-awesome",
+            "path": "../node_modules/font-awesome/css",
+            "main": "font-awesome.css"
+          },
+          {
             "name": "selectize",
             "main": "dist/js/standalone/selectize.js",
             "path": "../node_modules/selectize",
