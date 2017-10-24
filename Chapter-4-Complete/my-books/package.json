@@ -12,10 +12,11 @@
     "aurelia-bootstrapper": "^2.1.0",
     "aurelia-fetch-client": "^1.1.2",
     "bluebird": "^3.4.1",
-    "bootstrap": "^4.0.0-alpha.6",
+    "bootstrap": "^4.0.0-beta",
     "font-awesome": "^4.7.0",
     "requirejs": "^2.3.2",
-    "tether": "^1.4.0",
+    "popper.js": "^1.12.5",
+    "jquery": "^3.2.1",
     "text": "github:requirejs/text#latest"
   },
   "peerDependencies": {},
