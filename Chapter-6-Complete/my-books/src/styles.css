@@ -49,7 +49,6 @@ body {
   font-size: 1.5rem;
 }
 
-
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 48em) {
   /* Remove the padding we set earlier */
@@ -66,6 +65,12 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+.btn-secondary {
+  color: #292b2c;
+  background-color: #fff;
+  border-color: #ccc;
 }
 
 /***********************************************************************************************************/
