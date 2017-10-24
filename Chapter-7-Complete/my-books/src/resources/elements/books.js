@@ -33,7 +33,7 @@ export class Books {
   }
 
   addBook () {
-    this.books.push({title : this.bookTitle});
+    this.books.push({title : this.bookTitle, shelves : [], genres : []});
     this.bookTitle = "";
   }
   
