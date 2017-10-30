@@ -8,6 +8,10 @@ export class AuthService{
         this.http = http;
     }
 
+    getToken(){
+        return window.localStorage.getItem("token");
+    }
+
     logIn(userName, password){
 
         return this.http.fetch('token', {
@@ -37,7 +41,7 @@ export class AuthService{
                     request.headers.append('authorization', `bearer ${token}`);
                 }
                 return request; 
-            }
+            };
         }
     }
 }

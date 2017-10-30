@@ -9,13 +9,14 @@
 
             <label for="book-title"></label>
 
-            <input class="form-control" value.one-way="bookTitle"
-                  id="book-title"
-                  type="text">
-     
+            <input class="form-control" 
+                  value.bind="bookTitle & debounce:850" #A
+                                  id="book-title"
+                                  type="text">
+                                  
             <input class="btn btn-success tap-right" 
                    type="submit" 
-                   value.bind="add" 
+                   value.one-way="add" 
                    disabled.bind="canAdd">
 
           </form>

@@ -21,7 +21,7 @@ export class EditBook{
         this.controller.addRenderer(new BootstrapFormRenderer());
         this.eventAggregator = eventAggregator;
         this.bookApi = bookApi;
-        this.ratingChangedListener =  e => this.temporaryBook.rating = e.rating;
+        this.ratingChangedListener =  e => this.temporaryBook.rating = e.detail.rating;
         this.editingShelves = false;
         this.saved = false;
     }
@@ -49,6 +49,7 @@ export class EditBook{
         if(editModeNew) this.resetTempBook();
     }
 
+    
     @computedFrom('temporaryBook.title', 'temporaryBook.description', 'temporaryBook.rating', 'temporaryBook.ownACopy', 'temporaryBook.genre', 'saved', 'temporaryBook.shelves')
     get canSave(){
         if(!this.temporaryBook._id) return false;

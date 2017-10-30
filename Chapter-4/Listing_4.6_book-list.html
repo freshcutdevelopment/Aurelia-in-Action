@@ -1,4 +1,5 @@
 <template>
+  <require from="../attributes/tooltip"></require>
   <ul class="books list-group list-group-flush">
       <li class="list-group-item ${$even ? 'book-even' : ''}"
           repeat.for="book of books">
@@ -6,7 +7,8 @@
                ${book.title} ${bookLocation($first, $last)}</div>
           		<div class="col-1">
                     <span class="remove-button"  
-                          click.delegate="removeBook($index)">
+                          click.delegate="removeBook($index)"
+                          tooltip="title.bind:'Remove book from list'; placement.bind:'right'">
                           <i class="fa fa-trash" aria-hidden="true"></i>
               </span>
           </div>

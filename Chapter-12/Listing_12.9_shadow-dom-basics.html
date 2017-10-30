@@ -15,7 +15,7 @@
                 createdCallback() {
                     let infoCard = document.querySelector('#info-card');
                     let infoCardInstance = document.importNode(infoCard.content, true);
-                    var root = this.createShadowRoot(); //create a new shadow root
+                    let root = this.createShadowRoot(); //create a new shadow root
                     root.appendChild(infoCardInstance); //append the cloned template to the ShadowRoot
                 };
             }

@@ -5,15 +5,15 @@
     <div class="card">
         <div class="card-header form-inline">
             <div class="input-group">
-                <span class="input-group-addon" id="filter-icon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                <span class="input-group-addon" id="filter-icon">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </span>
                 <input type="text" class="form-control" placeholder="filter" aria-describedby="filter-icon" value.bind="searchTerm">
             </div>
         </div>
-    
+
         <ul class="books list-group list-group-flush">
-            <book containerless 
-                  repeat.for="book of books | filter:searchTerm" 
-                  book.bind="book"
-                  search-term.bind="searchTerm"></book>
+            <book containerless repeat.for="book of books | filter:searchTerm" book.bind="book" search-term.bind="searchTerm"></book>
         </ul>
+    </div>
 </template>

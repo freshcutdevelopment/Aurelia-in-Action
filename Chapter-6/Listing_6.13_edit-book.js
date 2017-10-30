@@ -10,7 +10,7 @@ export class EditBook{
 
     constructor(eventAggregator){
         this.eventAggregator = eventAggregator;
-        this.ratingChangedListener =  e => this.temporaryBook.rating = e.rating;
+        this.ratingChangedListener =  e => this.temporaryBook.rating = e.detail.rating;
     }
 
     bind(){
@@ -22,9 +22,12 @@ export class EditBook{
         if(editModeNew) this.resetTempBook();
     }
 
-    @computedFrom('temporaryBook.title', 'temporaryBook.description', 'temporaryBook.rating')
+    @computedFrom('temporaryBook.title', 
+                  'temporaryBook.description', 
+                  'temporaryBook.rating')
     get canSave(){
-        return this.temporaryBook && !_.isEqual(this.temporaryBook, this.book);
+        return this.temporaryBook 
+            && !_.isEqual(this.temporaryBook, this.book);
     }
 
     resetTempBook(){
@@ -47,6 +50,7 @@ export class EditBook{
         this.loading = false;
         this.saved = true;
         setTimeout(() => {
+           this.resetTempBook();
            this.saved = false;
            this.toggleEditMode();  
         }, 500);  

@@ -12,7 +12,33 @@ export class Books {
     this.bookApi = bookApi;
     this.eventAggregator = eventAggregator;
   }
+
+  bind(){
+    this.loadBooks();
+    this.loadGenres();
+    this.loadShelves();
+  }
+    
+  loadBooks(){
+    this.bookApi.getBooks()
+                .then(savedBooks => 
+                      this.books = savedBooks);
+  }
   
+  loadGenres(){
+      this.bookApi.getGenres()
+          .then(genres =>{
+              this.genres = genres;
+          });
+  }
+
+  loadShelves(){
+      this.bookApi.getShelves()
+          .then(shelves => {
+              this.shelves = shelves;
+          });
+  }
+
   addBook () {
     this.bookApi.addBook({title : this.bookTitle}).then(createdBook => {
         this.books.push(createdBook);
@@ -29,12 +55,6 @@ export class Books {
 
       this.books.splice(bookIndex, 1);
       });
-  }
-
-  bind(){
-    this.bookApi.getBooks()
-                .then(savedBooks => 
-                      this.books = savedBooks);
   }
 
   attached(){

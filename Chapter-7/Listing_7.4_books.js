@@ -12,12 +12,18 @@ export class Books {
     this.bookApi = bookApi;
     this.eventAggregator = eventAggregator;
   }
+
   bind(){
     this.loadBooks();
     this.loadGenres();
     this.loadShelves();
   }
-
+    
+  loadBooks(){
+    this.bookApi.getBooks()
+                .then(savedBooks => 
+                      this.books = savedBooks);
+  }
   
   loadGenres(){
       this.bookApi.getGenres()
@@ -34,7 +40,7 @@ export class Books {
   }
 
   addBook () {
-    this.books.push({title : this.bookTitle});
+    this.books.push({title : this.bookTitle, shelves : [], genres : []});
     this.bookTitle = "";
   }
   
@@ -46,7 +52,6 @@ export class Books {
 
     this.books.splice(bookIndex, 1);
   }
-
 
   attached(){
     this.subscribeToEvents();
@@ -67,12 +72,6 @@ export class Books {
           .saveBook(updatedBook)
           .then((savedBook) => this.eventAggregator
                                   .publish(`book-save-complete-${savedBook.Id}`));
-  }
-  
-  loadBooks(){
-      this.bookApi.getBooks()
-                  .then(savedBooks => 
-                        this.books = savedBooks);
   }
 
   @computedFrom('bookTitle.length') 

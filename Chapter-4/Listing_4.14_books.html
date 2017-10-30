@@ -1,6 +1,7 @@
 <template>
     <require from="./book-list"></require>
     <require from="./heading.html"></require>
+    <require from="./book-stats.html"></require>
     <heading text.bind="'books'"></heading>
 
     <div class="card">
@@ -15,12 +16,16 @@
      
             <input class="btn btn-success tap-right" 
                    type="submit" 
-                   value="add" 
-                   disabled.bind="canAdd">
+                   value="add">
 
           </form>
         </div>
     </div>
     <hr/>
     <book-list books.bind="books"></book-list>
+    <hr/>
+    <book-stats if.bind="books.length > 0"
+              books.bind="books"
+              original-number-of-books.one-time="books.length">
+    </book-stats>
 </template>

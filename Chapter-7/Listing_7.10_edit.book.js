@@ -14,7 +14,7 @@ export class EditBook{
 
     constructor(eventAggregator ){
         this.eventAggregator = eventAggregator;
-        this.ratingChangedListener =  e => this.temporaryBook.rating = e.rating;
+        this.ratingChangedListener =  e => this.temporaryBook.rating = e.detail.rating;
         this.saved = false;
     }
 
@@ -93,9 +93,9 @@ export class EditBook{
     bookSaveComplete(){
         this.loading = false;
         this.saved = true;
-        Object.assign(this.book, this.temporaryBook);
 
         setTimeout(() => {
+           this.resetTempBook();
            this.saved = false;
            this.toggleEditMode();  
         }, 500);  

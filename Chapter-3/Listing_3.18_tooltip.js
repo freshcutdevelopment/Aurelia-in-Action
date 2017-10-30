@@ -1,10 +1,8 @@
-import { inject, bindable } from "aurelia-framework";
+import { inject } from "aurelia-framework";
 
 @inject(Element)
 export class TooltipCustomAttribute {
-  @bindable title;
-  @bindable placement;
-
+  
   constructor(element) {
     this.element = element;
   }

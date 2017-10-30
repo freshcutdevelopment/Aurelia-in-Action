@@ -1,149 +1,150 @@
-import {bindable, inject, computedFrom, NewInstance} from 'aurelia-framework';
-import {EventAggregator} from 'aurelia-event-aggregator';
-import {BootstrapFormRenderer} from '../../renderers/bootstrap-form-renderer';
-import {ValidationRules, ValidationController} from 'aurelia-validation';
-import _ from 'lodash';
+import { bindable, inject, computedFrom, NewInstance } from "aurelia-framework";
+import { EventAggregator } from "aurelia-event-aggregator";
+import { BootstrapFormRenderer } from "../../renderers/bootstrap-form-renderer";
+import { ValidationRules, ValidationController } from "aurelia-validation";
+import _ from "lodash";
 
-@inject(EventAggregator, NewInstance.of(ValidationController) )
-export class EditBook{
-    
-    @bindable editMode;
-    @bindable book;
-    @bindable selectedGenre;
-    @bindable genres;
-    @bindable shelves;
-    temporaryBook = new Book();
+@inject(EventAggregator, NewInstance.of(ValidationController))
+export class EditBook {
+  @bindable editMode;
+  @bindable book;
+  @bindable selectedGenre;
+  @bindable genres;
+  @bindable shelves;
+  temporaryBook = new Book();
 
-    constructor(eventAggregator,  validationController ){
-        
-        this.validationController = validationController;
-        this.validationController.addRenderer(new BootstrapFormRenderer());
-        this.eventAggregator = eventAggregator;
-        this.ratingChangedListener =  e => this.temporaryBook.rating = e.rating;
-        this.editingShelves = false;
-        this.saved = false;
+  constructor(eventAggregator, validationController) {
+    this.validationController = validationController;
+    this.validationController.addRenderer(new BootstrapFormRenderer());
+    this.eventAggregator = eventAggregator;
+    this.ratingChangedListener = e => (this.temporaryBook.rating = e.detail.rating);
+    this.editingShelves = false;
+    this.saved = false;
+  }
 
-    }
+  bind() {
+    this.resetTempBook();
+    this.ratingElement.addEventListener("change", this.ratingChangedListener);
+    this.selectedShelves = this.shelves.filter(
+      shelf => this.temporaryBook.shelves.indexOf(shelf) !== -1
+    );
+    this.selectedGenre = this.genres.find(g => g.id == this.book.genre);
+  }
 
-    bind(){
+  selectedGenreChanged(newValue, oldValue) {
+    if (!newValue) return;
+    this.temporaryBook.genre = newValue.id;
+  }
+
+  attached() {
+    this.bookSaveCompleteSubscription = this.eventAggregator.subscribe(
+      `book-save-complete-${this.book.Id}`,
+      () => this.bookSaveComplete()
+    );
+  }
+
+  editModeChanged(editModeNew, editModeOld) {
+    if (editModeNew) this.resetTempBook();
+  }
+
+  @computedFrom(
+    "temporaryBook.title",
+    "temporaryBook.description",
+    "temporaryBook.rating",
+    "temporaryBook.ownACopy",
+    "temporaryBook.genre",
+    "saved",
+    "temporaryBook.shelves"
+  )
+  get canSave() {
+    let clean =
+      this.temporaryBook.title == this.book.title &&
+      this.temporaryBook.genre == this.book.genre &&
+      this.temporaryBook.rating == this.book.rating &&
+      this.temporaryBook.ownACopy == this.book.ownACopy &&
+      this.temporaryBook.description == this.book.description &&
+      this.temporaryBook.shelves == this.book.shelves;
+
+    return !clean;
+  }
+
+  resetTempBook() {
+    Object.assign(this.temporaryBook, this.book);
+  }
+
+  cancel() {
+    let book = Object.assign(new Book(), this.book);
+    this.temporaryBook = book;
+    this.starRatingViewModel.applyRating(this.temporaryBook.rating);
+    this.toggleEditMode();
+  }
+
+  save() {
+    this.validationController.validate().then(result => {
+      if (result.valid) {
         this.resetTempBook();
-        this.ratingElement.addEventListener("change", this.ratingChangedListener);
-        this.selectedShelves = this.shelves.filter(shelf => this.temporaryBook.shelves.indexOf(shelf) !== -1);
-        this.selectedGenre = this.genres.find(g => g.id == this.book.genre);
-    }
+        this.loading = true;
+        this.publishBookSavedEvent();
+      }
+    });
+  }
 
-    selectedGenreChanged(newValue, oldValue){
-        if(!newValue) return;
-        this.temporaryBook.genre = newValue.id;
-    }
+  toggleEditShelves() {
+    this.editingShelves = !this.editingShelves;
+  }
 
-    attached(){
-        this.bookSaveCompleteSubscription = 
-            this.eventAggregator
-            .subscribe(`book-save-complete-${this.book.Id}`, 
-                        () =>  this.bookSaveComplete());
-    }
+  unToggleEditShelves() {
+    this.temporaryBook.shelves = this.selectedShelves;
+    this.editingShelves = !this.editingShelves;
+  }
 
-    editModeChanged(editModeNew, editModeOld){
-        if(editModeNew) this.resetTempBook();
-    }
+  bookSaveComplete() {
+    this.loading = false;
+    this.saved = true;
 
-    @computedFrom('temporaryBook.title', 
-                  'temporaryBook.description', 
-                  'temporaryBook.rating', 
-                  'temporaryBook.ownACopy', 
-                  'temporaryBook.genre', 
-                  'saved', 
-                  'temporaryBook.shelves',
-                  'temporaryBook.timesRead')
-    get canSave(){
-        if(!this.temporaryBook.Id) return false;
-        
-        return this.isDirty();
-    }
+    setTimeout(() => {
+      this.resetTempBook();
+      this.saved = false;
+      this.toggleEditMode();
+    }, 500);
+  }
 
-    isDirty(){
-     
-        let differences = [];
-        _.forOwn(this.temporaryBook, (value, key) => {
-            return differences.push({different : this.book[key] != value, key : key} ); 
-        });
+  publishBookSavedEvent() {
+    this.eventAggregator.publish("save-book", this.temporaryBook);
+  }
 
-        return differences.filter(d => d.different).length > 0;
-    }
+  toggleEditMode() {
+    this.saved = false;
+    this.eventAggregator.publish("edit-mode-changed", !this.editMode);
+  }
 
-    resetTempBook(){
-        Object.assign(this.temporaryBook, this.book);
-    }
-
-    cancel(){
-        let book = Object.assign(new Book(), this.book);
-        this.temporaryBook = book;
-        this.starRatingViewModel.applyRating(this.temporaryBook.rating);
-        this.toggleEditMode();
-    }
-    
-    save(){
-        this.validationController.validate()
-                        .then(result => {
-                            if (result.valid) {
-                                this.loading = true;
-                                this.publishBookSavedEvent();
-                            } 
-                        });
-    }
-
-    toggleEditShelves(){
-        this.editingShelves = !this.editingShelves;
-    }
-
-    unToggleEditShelves(){
-        this.temporaryBook.shelves = this.selectedShelves;
-        this.editingShelves = !this.editingShelves;
-    }
-
-    bookSaveComplete(){
-        this.loading = false;
-        this.saved = true;
-        Object.assign(this.book, this.temporaryBook);
-
-        setTimeout(() => {
-           this.saved = false;
-           this.toggleEditMode();  
-        }, 500);  
-    }
-
-    publishBookSavedEvent(){
-        this.eventAggregator.publish('save-book', this.temporaryBook);
-    }
-
-    toggleEditMode(){
-        this.saved = false;
-        this.eventAggregator.publish('edit-mode-changed', !this.editMode );
-    }
-
-    detached(){
-        this.ratingElement.removeEventListener('change', this.ratingChangedListener);
-        this.bookSaveCompleteSubscription.dispose();
-    }
+  detached() {
+    this.ratingElement.removeEventListener(
+      "change",
+      this.ratingChangedListener
+    );
+    this.bookSaveCompleteSubscription.dispose();
+  }
 }
 
 export class Book {
-  title='';
-  description='';
+  title = "";
+  description = "";
   timesRead = 0;
 }
 
 ValidationRules.customRule(
-  'zeroOrPositiveInteger',
-  (value, obj) => value === null || value === undefined 
-    || (Number.isInteger(value) || value >= 0),
-  `Books can only be read 0 or more times.` 
+  "zeroOrPositiveInteger",
+  (value, obj) =>
+    value === null ||
+    value === undefined ||
+    (Number.isInteger(value) || value >= 0),
+  `Books can only be read 0 or more times.`
 );
 
-ValidationRules
-  .ensure(a => a.title).required()
-  .ensure('timesRead')
+ValidationRules.ensure(a => a.title)
   .required()
-  .satisfiesRule('zeroOrPositiveInteger')
+  .ensure("timesRead")
+  .required()
+  .satisfiesRule("zeroOrPositiveInteger")
   .on(Book);

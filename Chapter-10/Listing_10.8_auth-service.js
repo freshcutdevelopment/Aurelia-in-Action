@@ -35,7 +35,7 @@ export class AuthService{
                 }
                 return request; 
             }
-        }
+        };
     }
 
     logOut(){
@@ -61,7 +61,7 @@ export class AuthService{
 
     decodeToken(token){
         
-        token = token || window.localStorage.getItem("token");
+        token = token || this.getToken();
 
         if(!token) return;
 

@@ -9,7 +9,7 @@ export class AuSelectizeCustomAttribute{
     constructor(element, http){
         this.element = element;
         this.http = http;
-        this.selected = [];
+        this.selected = {};
     }
 
     attached(){

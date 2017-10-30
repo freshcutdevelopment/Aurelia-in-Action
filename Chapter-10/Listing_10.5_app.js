@@ -1,3 +1,4 @@
+import 'bootstrap';
 import { AuthService } from "./services/auth-service";
 import { inject } from "aurelia-framework";
 import { HttpClient } from "aurelia-fetch-client";

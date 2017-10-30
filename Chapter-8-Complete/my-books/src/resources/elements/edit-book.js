@@ -21,7 +21,7 @@ export class EditBook{
         this.controller.addRenderer(new BootstrapFormRenderer());
         this.eventAggregator = eventAggregator;
         this.bookApi = bookApi;
-        this.ratingChangedListener =  e => this.temporaryBook.rating = e.rating;
+        this.ratingChangedListener =  e => this.temporaryBook.rating = e.detail.rating;
         this.editingShelves = false;
         this.saved = false;
     }
@@ -96,8 +96,10 @@ export class EditBook{
     bookSaveComplete(){
         this.loading = false;
         this.saved = true;
+
         setTimeout(() => {
            this.saved = false;
+           this.resetTempBook();
            this.toggleEditMode();  
         }, 500);  
     }

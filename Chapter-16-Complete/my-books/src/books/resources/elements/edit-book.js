@@ -19,7 +19,7 @@ export class EditBook{
         this.controller = controller;
         this.controller.addRenderer(new BootstrapFormRenderer());
         this.eventAggregator = eventAggregator;
-        this.ratingChangedListener =  e => this.temporaryBook.rating = e.rating;
+        this.ratingChangedListener =  e => this.temporaryBook.rating = e.detail.rating;
         this.editingShelves = false;
         this.saved = false;
 

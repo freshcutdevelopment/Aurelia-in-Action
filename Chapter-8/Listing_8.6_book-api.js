@@ -14,7 +14,7 @@ export class BookApi{
                 .withInterceptor({
                     request(request) {
                         if(request.method == 'POST'){
-                            request.headers['awesesome-custom-header'] = 'aurelia-in-action';
+                            request.headers['awesome-custom-header'] = 'aurelia-in-action';
                         }
                         console.log("request", request);
                         return request;

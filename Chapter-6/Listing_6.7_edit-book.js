@@ -20,7 +20,8 @@ export class EditBook{
         if(editModeNew) this.resetTempBook();
     }
 
-    @computedFrom('temporaryBook.title', 'temporaryBook.description', 'temporaryBook.rating')
+    @computedFrom('temporaryBook.title', 
+                  'temporaryBook.description')
     get canSave(){
         return this.temporaryBook && !_.isEqual(this.temporaryBook, this.book);
     }
@@ -43,6 +44,7 @@ export class EditBook{
         this.loading = false;
         this.saved = true;
         setTimeout(() => {
+           this.resetTempBook();
            this.saved = false;
            this.toggleEditMode();  
         }, 500);  

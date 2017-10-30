@@ -22,7 +22,7 @@ export class EditBook{
 
         this.eventAggregator = eventAggregator;
         this.bookApi = bookApi;
-        this.ratingChangedListener =  e => this.temporaryBook.rating = e.rating;
+        this.ratingChangedListener =  e => this.temporaryBook.rating = e.detail.rating;
         this.editingShelves = false;
 
     }
@@ -100,6 +100,7 @@ export class EditBook{
         this.loading = false;
         this.saved = true;
         setTimeout(() => {
+           this.resetTempBook();
            this.saved = false;
            this.toggleEditMode();  
         }, 500);  

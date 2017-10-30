@@ -1,4 +1,4 @@
-import {inject, bindable} from 'aurelia-framework';
+import {inject, bindable, DOM} from 'aurelia-framework';
 
 @inject(Element) // Inject the instance of this element
 export class StarRating{
@@ -113,7 +113,7 @@ export class StarRating{
     }
 
     raiseChangedEvent(){
-        let changeEvent = new CustomEvent('change', {rating: this.rating});
+        let changeEvent = DOM.createCustomEvent('change', {detail : {rating: this.rating}});
     
         this.element.dispatchEvent(changeEvent);
     }

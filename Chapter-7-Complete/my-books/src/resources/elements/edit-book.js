@@ -19,7 +19,7 @@ export class EditBook{
         this.controller = controller;
         this.controller.addRenderer(new BootstrapFormRenderer());
         this.eventAggregator = eventAggregator;
-        this.ratingChangedListener =  e => this.temporaryBook.rating = e.rating;
+        this.ratingChangedListener =  e => this.temporaryBook.rating = e.detail.rating;
         this.editingShelves = false;
         this.saved = false;
 
@@ -29,7 +29,7 @@ export class EditBook{
         this.resetTempBook();
         this.ratingElement.addEventListener("change", this.ratingChangedListener);
         this.selectedShelves = this.shelves.filter(shelf => this.temporaryBook.shelves.indexOf(shelf) !== -1);
-        this.selectedGenre = this.genres.find(g => g.id == this.book.genre);
+        this.selectedGenre   = this.genres.find(g => g.id == this.book.genre);
     }
 
     selectedGenreChanged(newValue, oldValue){
@@ -100,9 +100,9 @@ export class EditBook{
     bookSaveComplete(){
         this.loading = false;
         this.saved = true;
-        Object.assign(this.book, this.temporaryBook);
 
         setTimeout(() => {
+           this.resetTempBook();
            this.saved = false;
            this.toggleEditMode();  
         }, 500);  

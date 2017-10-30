@@ -1,0 +1,12 @@
+<html>
+    <head></head>
+    <body>
+      <p id="component-host"></p>
+      <script>
+        var shadowElement = document.querySelector('#component-host') 
+                                    .attachShadow({mode: 'open'});
+
+        shadowElement.innerHTML = '<span>DOM subtree</span>';
+      </script>
+    </body>
+  </html>
