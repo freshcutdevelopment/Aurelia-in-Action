@@ -1,5 +1,25 @@
-<template id="info-card">
-    <slot name="header"><h1>To be replaced with header</h1></slot>
-    <slot name="body"><p>To be replaced with body </p></slot>
+<template>
+    <style>
+        .card-content {
+            border: 1px solid grey;
+            width: 500px;
+            height: 150px;
+            margin-bottom: 10px;
+            padding: 20px;
+            color: #777;
+            background-color: #F7F7F7;
+            font-family: 'Source Sans Pro',
+            Helvetica, 'Open Sans', sans-serif;
+        }
+
+        .card-body {
+            background-color: white;
+            padding: 10px;
+            padding-bottom: 30px;
+        }
+    </style>
+
+    <div class="card-content">
+        <p>info card content</p>
+    </div>
 </template>
-     
