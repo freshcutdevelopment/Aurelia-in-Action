@@ -49,7 +49,7 @@ export class Books {
                     this.books = savedBooks);
   }
 
-   loadBooksJsonp(){
+  loadBooksJsonp(){
       this.bookApiJSONP.getBooksJsonp()
               .then(savedBooks => console.log("jsonp books", savedBooks));
   }

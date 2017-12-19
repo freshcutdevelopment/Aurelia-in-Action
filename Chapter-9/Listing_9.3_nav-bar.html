@@ -5,6 +5,7 @@
                 class="nav-item">
                 <a class="nav-link  ${row.isActive ? 'active' : ''}" href.bind="row.href">
                     ${row.title}
+                    <i if.bind="row.settings.icon" class="fa fa-${row.settings.icon}"></i>
                 </a>
             </li>
         </ul>

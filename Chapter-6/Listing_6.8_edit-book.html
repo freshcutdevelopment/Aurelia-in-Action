@@ -1,7 +1,7 @@
 <template>
     <require from='../value-converters/date-format'></require>
     <div
-        class="edit-book ${editMode ? 'visible': 'hidden'} transformable">
+        class="edit-book ${editMode ? 'visible': 'hidden'}">
         <div class="wrapper">
             <div class="row">
                 <span class="col-3 offset-md-10"> 
@@ -46,7 +46,7 @@
                     <button class="btn btn-secondary btn-sm" 
                             click.delegate="cancel()"> 
                             <span class="cancel"> 
-                                <i class="fa fa-minus-circle" aria-hidden="true"></i> 
+                                <i class="fa fa-minus-circle"></i> 
                             </span> cancel
                     </button>
                 </div>

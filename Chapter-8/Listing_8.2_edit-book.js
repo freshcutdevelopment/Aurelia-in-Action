@@ -5,7 +5,7 @@ import {BootstrapFormRenderer} from '../../renderers/bootstrap-form-renderer';
 import {ValidationRules, ValidationController} from 'aurelia-validation';
 import _ from 'lodash';
 
-@inject(EventAggregator, BookApi,NewInstance.of(ValidationController) )
+@inject(EventAggregator,NewInstance.of(ValidationController) )
 export class EditBook{
     
     @bindable editMode;
@@ -15,12 +15,11 @@ export class EditBook{
     @bindable shelves = [];
     temporaryBook = new Book();
 
-    constructor(eventAggregator, bookApi, controller ){
+    constructor(eventAggregator, controller ){
         
         this.controller = controller;
         this.controller.addRenderer(new BootstrapFormRenderer());
         this.eventAggregator = eventAggregator;
-        this.bookApi = bookApi;
         this.ratingChangedListener =  e => this.temporaryBook.rating = e.detail.rating;
         this.editingShelves = false;
         this.saved = false;
@@ -50,7 +49,7 @@ export class EditBook{
     }
 
     
-    @computedFrom('temporaryBook.title', 'temporaryBook.description', 'temporaryBook.rating', 'temporaryBook.ownACopy', 'temporaryBook.genre', 'saved', 'temporaryBook.shelves')
+    @computedFrom('temporaryBook.title', 'temporaryBook.description', 'temporaryBook.rating', 'temporaryBook.ownACopy', 'temporaryBook.genre', 'saved', 'temporaryBook.shelves', 'temporaryBook.timesRead')
     get canSave(){
         if(!this.temporaryBook._id) return false;
 
@@ -59,7 +58,8 @@ export class EditBook{
                this.temporaryBook.rating == this.book.rating &&
                this.temporaryBook.ownACopy == this.book.ownACopy &&
                this.temporaryBook.description == this.book.description &&
-               this.temporaryBook.shelves == this.book.shelves;
+               this.temporaryBook.shelves == this.book.shelves &&
+               this.temporaryBook.timesRead == this.book.timesRead;
 
         return !clean;
     }

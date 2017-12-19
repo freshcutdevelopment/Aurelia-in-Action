@@ -62,13 +62,26 @@ export class EditBook{
     editModeChanged(editModeNew, editModeOld){
         if(editModeNew) this.resetTempBook();
     }
-
-    @computedFrom('temporaryBook.title', 'temporaryBook.description', 'temporaryBook.rating', 'temporaryBook.ownACopy', 'temporaryBook.genre')
+    @computedFrom('temporaryBook.title', 
+        'temporaryBook.description', 
+        'temporaryBook.rating', 
+        'temporaryBook.ownACopy', 
+        'temporaryBook.genre', 
+        'saved', 
+        'temporaryBook.shelves',
+        'temporaryBook.timesRead')
     get canSave(){
-        let compareBook = Object.assign(new Book(), this.book);
-        return this.temporaryBook && !_.isEqual(this.temporaryBook, compareBook);
-    }
 
+        let clean = this.temporaryBook.title == this.book.title && 
+        this.temporaryBook.genre == this.book.genre &&
+        this.temporaryBook.rating == this.book.rating &&
+        this.temporaryBook.ownACopy == this.book.ownACopy &&
+        this.temporaryBook.description == this.book.description &&
+        this.temporaryBook.shelves == this.book.shelves &&
+        this.temporaryBook.timesRead == this.book.timesRead;
+
+        return !clean;
+    }
     resetTempBook(){
         Object.assign(this.temporaryBook, this.book);
     }

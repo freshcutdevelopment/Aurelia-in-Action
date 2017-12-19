@@ -33,7 +33,10 @@ export class BookApi{
                  .then(response => response.json())
                  .then(books => {
                     return books;
-                 });
+                 })
+                 .catch(error => {
+                    console.log('Error retrieving books.');
+                });
 
     }
 
@@ -43,7 +46,10 @@ export class BookApi{
                  .then(response => response.json())
                  .then(shelves => {
                     return shelves;
-                 });
+                 })
+                 .catch(error => {
+                    console.log('Error retrieving shelves.');
+                });
     }
 
     getGenres(){
@@ -52,7 +58,10 @@ export class BookApi{
                  .then(response => response.json())
                  .then(genres => {
                     return genres;
-                 });
+                 })
+                 .catch(error => {
+                    console.log('Error retrieving genres.');
+                });
     }
 
     addBook(book){
@@ -63,6 +72,9 @@ export class BookApi{
             .then(response => response.json())
             .then(createdBook => {
                 return createdBook;
+            })
+            .catch(error => {
+                console.log('Error adding book.');
             });
     }
 
@@ -73,6 +85,9 @@ export class BookApi{
                 .then(response => response.json())
                 .then(responseMessage => {
                     return responseMessage;
+                })
+                .catch(error => {
+                    console.log('Error deleting book.');
                 });
     }
 
@@ -84,7 +99,10 @@ export class BookApi{
                  .then(response => response.json())
                  .then(savedBook => {
                     return savedBook;
-                 });
+                 })
+                 .catch(error => {
+                    console.log('Error saving book.');
+                });
 
     }
 }

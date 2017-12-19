@@ -9,6 +9,7 @@ export class EditBook{
     @bindable book;
 
     constructor(eventAggregator){
+        this.resetTempBook();
         this.eventAggregator = eventAggregator;
     }
 
@@ -27,7 +28,9 @@ export class EditBook{
     }
 
     resetTempBook(){
-        this.temporaryBook = Object.assign({}, this.book);
+        let book = Object.assign(new Book(), this.book);
+        this.temporaryBook = book;
+        Object.assign(this.temporaryBook, this.book);
     }
 
     cancel(){

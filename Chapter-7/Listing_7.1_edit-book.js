@@ -7,8 +7,7 @@ export class EditBook{
     
     @bindable editMode;
     @bindable book;
-    @bindable selectedGenre;
-
+    
     constructor(eventAggregator ){
         this.resetTempBook();
 

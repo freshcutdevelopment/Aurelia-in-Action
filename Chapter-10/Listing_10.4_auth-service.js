@@ -41,7 +41,7 @@ export class AuthService{
                     request.headers.append('authorization', `bearer ${token}`);
                 }
                 return request; 
-            };
-        }
+            }
+        };
     }
 }

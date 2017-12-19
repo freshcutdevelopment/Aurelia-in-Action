@@ -4,13 +4,12 @@
       <li class="list-group-item ${$even ? 'book-even' : ''}"
           repeat.for="book of books">
           <div class="book row">
-            <div class="col-11">
-                ${book.title} ${bookLocation($first, $last)}</div>
-                    <div class="col-1">
-                        <span class="remove-button"  
-                            click.delegate="removeBook($index)"
-                            tooltip="title.bind:'Remove book from list'; placement.bind:'right'">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
+            <div class="col-10"> ${book.title} ${bookLocation($first, $last)}</div>   
+            <div class="col-1">
+                <span class="remove-button"  
+                    click.delegate="removeBook($index)"
+                    tooltip="title.bind:'Remove book from list'; placement.bind:'right'">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
                 </span>
             </div>
           </div>

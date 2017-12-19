@@ -1,4 +1,4 @@
-import {bindable, inject, computedFrom} from 'aurelia-framework';
+import {bindable, inject} from 'aurelia-framework';
 import {BookApi} from '../../services/book-api';
 
 @inject(BookApi)

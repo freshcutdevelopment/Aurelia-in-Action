@@ -1,5 +1,5 @@
 export class FilterValueConverter{
-  toView(array, searchTerm, filterFunc) {
+  toView(array, searchTerm) {
     return array.filter((item) => {
 	  return searchTerm && searchTerm.length > 0 ? this.itemMaches(searchTerm,item): true;	
     });
