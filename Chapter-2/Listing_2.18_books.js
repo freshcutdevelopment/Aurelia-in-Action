@@ -1,5 +1,5 @@
 import {bindable, inject} from 'aurelia-framework';
-import {BookApi} from '../../services/book-api';
+import {BookApi} from '../services/book-api';
 
 @inject(BookApi)
 export class Books {
