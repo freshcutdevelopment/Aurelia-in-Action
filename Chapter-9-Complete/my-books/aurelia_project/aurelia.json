@@ -94,7 +94,6 @@
         "prepend": [
           "node_modules/bluebird/js/browser/bluebird.core.js",
           "node_modules/aurelia-cli/lib/resources/scripts/configure-bluebird.js",
-          "node_modules/popper.js/dist/umd/popper.min.js",
           "node_modules/requirejs/require.js"
         ],
         "dependencies": [
@@ -146,13 +145,13 @@
           {
             "name": "bootstrap",
             "path": "../node_modules/bootstrap/dist",
-            "main": "js/bootstrap.min",
+            "main": "js/bootstrap.bundle.min.js",
             "deps": [
               "jquery"
             ],
-            "exports": "$",
-            "resources": [
-              "css/bootstrap.css"
+           "exports": "$",
+           "resources": [
+             "css/bootstrap.css"
             ]
           },
           {
