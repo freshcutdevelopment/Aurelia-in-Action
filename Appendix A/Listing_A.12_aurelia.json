@@ -12,9 +12,7 @@
       "displayName": "Babel",
       "fileExtension": ".js",
       "options": {
-        "plugins": [
-          "transform-es2015-modules-amd"
-        ]
+        "plugins": ["transform-es2015-modules-amd"]
       },
       "source": "src/**/*.js"
     },
@@ -38,6 +36,19 @@
       "id": "karma",
       "displayName": "Karma",
       "source": "test/unit/**/*.js"
+    },
+    "e2eTestRunner": {
+      "id": "protractor",
+      "displayName": "Protractor",
+      "source": "test/e2e/src/**/*.js",
+      "dist": "test/e2e/dist/",
+      "transpiler": {
+        "id": "babel",
+        "displayName": "Babel",
+        "options": {
+          "plugins": ["transform-es2015-modules-commonjs"]
+        }
+      }
     },
     "paths": {
       "root": "src",
@@ -69,10 +80,7 @@
         "plugins": [
           {
             "name": "text",
-            "extensions": [
-              ".html",
-              ".css"
-            ],
+            "extensions": [".html", ".css"],
             "stub": true
           }
         ]
@@ -84,17 +92,13 @@
       "bundles": [
         {
           "name": "app-bundle.js",
-          "source": [
-            "[**/*.js]",
-            "**/*.{css,html}"
-          ]
+          "source": ["[**/*.js]", "**/*.{css,html}"]
         },
         {
           "name": "vendor-bundle.js",
           "prepend": [
             "node_modules/bluebird/js/browser/bluebird.core.js",
             "node_modules/aurelia-cli/lib/resources/scripts/configure-bluebird.js",
-            "node_modules/popper.js/dist/umd/popper.min.js",
             "node_modules/requirejs/require.js"
           ],
           "dependencies": [
@@ -141,13 +145,12 @@
               "main": "aurelia-fetch-client",
               "path": "../node_modules/aurelia-fetch-client/dist/amd",
               "resources": []
-            },    
-            "lodash",
+            },
             "jquery",
             {
               "name": "bootstrap",
               "path": "../node_modules/bootstrap/dist",
-              "main": "js/bootstrap.min.js",
+              "main": "js/bootstrap.bundle.min.js",
               "deps": [
                 "jquery"
               ],
@@ -155,11 +158,6 @@
              "resources": [
                "css/bootstrap.css"
               ]
-            },
-            {
-              "name": "font-awesome",
-              "path": "../node_modules/font-awesome/css",
-              "main": "font-awesome.css"
             },
             {
               "name": "selectize",
@@ -172,6 +170,12 @@
                 "dist/css/selectize.default.css"
               ]
             },
+            {
+              "name": "font-awesome",
+              "path": "../node_modules/font-awesome/css",
+              "main": "font-awesome.css"
+            },
+            "lodash",
             "moment",
             {
               "name": "aurelia-validation",
@@ -190,9 +194,16 @@
               "main": "aurelia-dialog",
               "path": "../node_modules/aurelia-dialog/dist/amd",
               "resources": []
+            },
+            {
+              "name": "aurelia-animator-css",
+              "main": "aurelia-animator-css",
+              "path": "../node_modules/aurelia-animator-css/dist/amd",
+              "resources": []
             }
           ]
         }
       ]
     }
   }
+  

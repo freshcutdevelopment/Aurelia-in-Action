@@ -94,7 +94,6 @@
         "prepend": [
           "node_modules/bluebird/js/browser/bluebird.core.js",
           "node_modules/aurelia-cli/lib/resources/scripts/configure-bluebird.js",
-          "node_modules/tether/dist/js/tether.min.js",
           "node_modules/requirejs/require.js"
         ],
         "dependencies": [
@@ -144,14 +143,16 @@
           },
           "jquery",
           {
-              "name": "bootstrap",
-              "path": "../node_modules/bootstrap/dist",
-              "main": "js/bootstrap.min",
-              "deps": ["jquery"],
-              "exports": "$",
-              "resources": [
-                  "css/bootstrap.css"
-              ]
+            "name": "bootstrap",
+            "path": "../node_modules/bootstrap/dist",
+            "main": "js/bootstrap.bundle.min.js",
+            "deps": [
+              "jquery"
+            ],
+           "exports": "$",
+           "resources": [
+             "css/bootstrap.css"
+            ]
           },
           {
               "name": "font-awesome",

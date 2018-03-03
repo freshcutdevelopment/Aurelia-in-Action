@@ -45,7 +45,9 @@
     "elements": "src/resources/elements",
     "attributes": "src/resources/attributes",
     "valueConverters": "src/resources/value-converters",
-    "bindingBehaviors": "src/resources/binding-behaviors"
+    "bindingBehaviors": "src/resources/binding-behaviors",
+    "fontsInput": "./node_modules/font-awesome/fonts/**/*.*",
+    "fontsOutput": "./fonts"
   },
   "testFramework": {
     "id": "jasmine",
@@ -92,7 +94,6 @@
         "prepend": [
           "node_modules/bluebird/js/browser/bluebird.core.js",
           "node_modules/aurelia-cli/lib/resources/scripts/configure-bluebird.js",
-          "node_modules/tether/dist/js/tether.min.js",
           "node_modules/requirejs/require.js"
         ],
         "dependencies": [
@@ -139,6 +140,19 @@
             "main": "aurelia-fetch-client",
             "path": "../node_modules/aurelia-fetch-client/dist/amd",
             "resources": []
+          },
+          "jquery",
+          {
+            "name": "bootstrap",
+            "path": "../node_modules/bootstrap/dist",
+            "main": "js/bootstrap.bundle.min.js",
+            "deps": [
+              "jquery"
+            ],
+           "exports": "$",
+           "resources": [
+             "css/bootstrap.css"
+            ]
           }
         ]
       }
