@@ -265,3 +265,7 @@ ul.ratings li{
   color:rgb(255, 204, 0);
 
 }
+
+.badge.badge-pill.badge-default{
+  color:white;
+}

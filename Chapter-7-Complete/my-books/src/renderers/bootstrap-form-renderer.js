@@ -29,16 +29,16 @@ export class BootstrapFormRenderer {
       return;
     }
 
-    // add the has-error class to the enclosing form-group div
-    formGroup.classList.add('has-danger');
+    // add the has-error class to the enclosing form-group div we 
+    formGroup.classList.add('was-validated');
 
     // add help-block
     const message = document.createElement('div');
-    message.className = 'form-control-feedback mb-2 mr-sm-2 mb-sm-0';
+    message.className = 'invalid-feedback mb-2 mr-sm-2 mb-sm-0';
     message.textContent = result.message;
     message.id = `validation-message-${result.id}`;
 
-    element.classList.add('form-control-danger');
+    element.setCustomValidity(message);
     
     formGroup.appendChild(message);
   }
@@ -60,9 +60,10 @@ export class BootstrapFormRenderer {
 
       // remove the has-error class from the enclosing form-group div
       if (formGroup.querySelectorAll('.help-block.validation-message').length === 0) {
-        formGroup.classList.remove('has-danger');
-        formGroup.classList.add('has-success');
-        element.classList.add('form-control-success');
+        formGroup.classList.remove('was-validated');
+        formGroup.classList.add('was-validated');
+        element.classList.add('is-valid');
+        element.setCustomValidity("");
     
       }
     }

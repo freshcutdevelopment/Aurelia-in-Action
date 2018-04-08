@@ -268,3 +268,7 @@ ul.ratings li{
 .padded{
   margin-right:3px;
 }
+
+.badge.badge-pill.badge-default{
+  color:white;
+}
