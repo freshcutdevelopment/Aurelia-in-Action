@@ -91,15 +91,6 @@ define('main',['exports', './environment'], function (exports, _environment) {
     });
   }
 });
-define('resources/index',["exports"], function (exports) {
-  "use strict";
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.configure = configure;
-  function configure(config) {}
-});
 define('services/book-api',['exports', 'aurelia-fetch-client', 'aurelia-framework'], function (exports, _aureliaFetchClient, _aureliaFramework) {
   'use strict';
 
@@ -134,6 +125,15 @@ define('services/book-api',['exports', 'aurelia-fetch-client', 'aurelia-framewor
 
     return BookApi;
   }()) || _class);
+});
+define('resources/index',["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.configure = configure;
+  function configure(config) {}
 });
 define('resources/elements/book-list',['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
   'use strict';

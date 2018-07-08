@@ -62,11 +62,12 @@ export class Books {
   }
 
   bookSaved(updatedBook){
+      let index = this.books.findIndex(book => book.Id == updatedBook.Id);
+      Object.assign(this.books[index], updatedBook);
+
       this.bookApi
           .saveBook(updatedBook)
-          .then((savedBook) =>{
-                let bookIndex = _.findIndex(this.books, book => book.Id === updatedBook.Id);
-                this.books[bookIndex] = updatedBook;
+          .then((savedBook) =>{          
                 this.eventAggregator.publish(`book-save-complete-${savedBook.Id}`);
           });
   }

@@ -40,7 +40,6 @@ export class EditBook{
     save(){
         this.loading = true;
         this.publishBookSavedEvent();
-        
     }
 
     bookSaveComplete(){

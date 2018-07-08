@@ -48,6 +48,10 @@ export class Books {
   }
 
   bookSaved(updatedBook){
+
+      let index = this.books.findIndex(book => book.Id == updatedBook.Id);
+      Object.assign(this.books[index], updatedBook);
+      
       this.bookApi
           .saveBook(updatedBook)
           .then((savedBook) => this.eventAggregator
