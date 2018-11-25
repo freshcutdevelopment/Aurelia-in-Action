@@ -1,7 +1,7 @@
 <template>
     <require from='./star-rating'></require>
     <require from='../value-converters/date-format'></require>
-    <div ref="editFormDiv" class="edit-book ${editMode ? 'visible': 'hidden'} transformable">
+    <div class="edit-book ${editMode ? 'visible': 'hidden'} transformable">
         <div class="wrapper">
             <div class="row">
                 <span class="col-3 offset-md-10"> <small class="text-muted">${book.readDate | dateFormat} </small></span>
